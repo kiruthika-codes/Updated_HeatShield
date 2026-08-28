@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Heat Risk | HeatShield</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/risk.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <!-- SAME LOGO AS HOMEPAGE -->
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <div class="logo-shield">
+            ☀
+        </div>
+
+        <div class="logo-text">
+
+            <strong>
+                Heat<span>Shield</span>
+            </strong>
+
+            <small>
+                STAY AWARE. STAY SAFE.
+            </small>
+
+        </div>
+
+    </a>
+
+
+    <nav
+        class="nav-links"
+        id="navLinks"
+    >
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a
+            href="risk.html"
+            class="active"
+        >
+            Heat Risk
+        </a>
+
+        <a href="alerts.html">
+            Alerts
+        </a>
+
+        <a href="heat-map.html">
+            Heat Map
+        </a>
+
+        <a href="safety.html">
+            Safety
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="location-button"
+            id="locationButton"
+        >
+
+            <!-- Location SVG -->
+
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="M12 21s7-6.2 7-12A7 7 0 0 0 5 9c0 5.8 7 12 7 12Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                />
+
+                <circle
+                    cx="12"
+                    cy="9"
+                    r="2.2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                />
+
+            </svg>
+
+            <span id="locationText">
+                Your Location
+            </span>
+
+        </button>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open navigation"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+
+    <!-- Ambient background -->
+
+    <div class="ambient-glow"></div>
+
+
+    <!-- ================= PAGE HEADER ================= -->
+
+    <section class="page-header">
+
+        <div>
+
+            <span class="eyebrow">
+                HEAT RISK MONITOR
+            </span>
+
+            <h1>
+                Know the heat.
+                <span>Protect yourself.</span>
+            </h1>
+
+            <p>
+                Understand current heat conditions,
+                identify your level of risk and take
+                practical steps to stay safe.
+            </p>
+
+        </div>
+
+
+        <div class="update-status">
+
+            <span class="live-dot"></span>
+
+            <div>
+
+                <small>
+                    LIVE STATUS
+                </small>
+
+                <strong id="updatedTime">
+                    Updated just now
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= OVERVIEW ================= -->
+
+    <section class="overview-grid">
+
+
+        <!-- ================= RISK CARD ================= -->
+
+        <article class="risk-card">
+
+            <div class="card-top">
+
+                <div>
+
+                    <span class="label">
+                        CURRENT HEAT STATUS
+                    </span>
+
+                    <h2 id="locationName">
+                        Your Area
+                    </h2>
+
+                </div>
+
+
+                <div class="live-label">
+
+                    <span></span>
+
+                    LIVE
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Gauge -->
+
+            <div class="gauge-wrapper">
+
+                <div class="gauge">
+
+                    <div class="gauge-inner">
+
+                        <span>
+                            HEAT INDEX
+                        </span>
+
+                        <strong id="heatIndex">
+                            42
+                        </strong>
+
+                        <small>
+                            °C
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Risk status -->
+
+            <div class="risk-level">
+
+                <span class="risk-indicator"></span>
+
+                <strong id="riskLevel">
+                    HIGH HEAT RISK
+                </strong>
+
+            </div>
+
+
+            <p
+                class="risk-description"
+                id="riskMessage"
+            >
+                Dangerous heat conditions are present.
+                Extra precautions are recommended.
+            </p>
+
+
+
+            <!-- Risk scale -->
+
+            <div class="risk-scale">
+
+                <div class="scale-bar">
+
+                    <div
+                        class="scale-marker"
+                        id="scaleMarker"
+                    ></div>
+
+                </div>
+
+
+                <div class="scale-labels">
+
+                    <span>
+                        Low
+                    </span>
+
+                    <span>
+                        Moderate
+                    </span>
+
+                    <span>
+                        High
+                    </span>
+
+                    <span>
+                        Extreme
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- ================= CONDITIONS CARD ================= -->
+
+        <article class="conditions-card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <span class="label">
+                        ENVIRONMENTAL CONDITIONS
+                    </span>
+
+                    <h2>
+                        Current conditions
+                    </h2>
+
+                </div>
+
+
+                <div class="sun-icon">
+
+                    <svg
+                        viewBox="0 0 40 40"
+                        aria-hidden="true"
+                    >
+
+                        <circle
+                            cx="20"
+                            cy="20"
+                            r="6"
+                            fill="currentColor"
+                        />
+
+                        <path
+                            d="
+                            M20 4V9
+                            M20 31V36
+                            M4 20H9
+                            M31 20H36
+                            M8.7 8.7L12.2 12.2
+                            M27.8 27.8L31.3 31.3
+                            M31.3 8.7L27.8 12.2
+                            M12.2 27.8L8.7 31.3
+                            "
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Conditions -->
+
+            <div class="condition-grid">
+
+
+                <!-- Temperature -->
+
+                <div class="condition">
+
+                    <div class="condition-icon orange">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                        >
+
+                            <path
+                                d="M14 14.8V5a2 2 0 0 0-4 0v9.8a5 5 0 1 0 4 0Z"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            />
+
+                            <path
+                                d="M12 10v7"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Temperature
+                        </span>
+
+                        <strong>
+                            <span id="temperature">
+                                38
+                            </span>°C
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Humidity -->
+
+                <div class="condition">
+
+                    <div class="condition-icon blue">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                        >
+
+                            <path
+                                d="M12 3S6 10 6 14a6 6 0 0 0 12 0c0-4-6-11-6-11Z"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Humidity
+                        </span>
+
+                        <strong>
+                            <span id="humidity">
+                                48
+                            </span>%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- UV -->
+
+                <div class="condition">
+
+                    <div class="condition-icon yellow">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                        >
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="4"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            />
+
+                            <path
+                                d="
+                                M12 2V5
+                                M12 19V22
+                                M2 12H5
+                                M19 12H22
+                                "
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            UV Index
+                        </span>
+
+                        <strong id="uvIndex">
+                            8
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Wind -->
+
+                <div class="condition">
+
+                    <div class="condition-icon green">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                        >
+
+                            <path
+                                d="M3 8h12a3 3 0 1 0-3-3"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                            />
+
+                            <path
+                                d="M3 13h15a3 3 0 1 1-3 3"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                            />
+
+                            <path
+                                d="M3 18h7"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                            />
+
+                        </svg>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Wind speed
+                        </span>
+
+                        <strong>
+                            <span id="wind">
+                                12
+                            </span>
+                            km/h
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Feels like -->
+
+            <div class="feels-row">
+
+                <span>
+                    Feels like
+                </span>
+
+                <strong id="feelsLike">
+                    42°C
+                </strong>
+
+            </div>
+
+
+
+            <!-- Heat trend -->
+
+            <div class="trend">
+
+                <div class="trend-heading">
+
+                    <span>
+                        TODAY'S HEAT TREND
+                    </span>
+
+                    <strong>
+                        Peak around 2 PM
+                    </strong>
+
+                </div>
+
+
+                <div class="chart">
+
+                    <svg
+                        viewBox="0 0 600 150"
+                        preserveAspectRatio="none"
+                    >
+
+                        <defs>
+
+                            <linearGradient
+                                id="lineGradient"
+                                x1="0"
+                                x2="1"
+                            >
+
+                                <stop
+                                    offset="0%"
+                                    stop-color="#b85c37"
+                                />
+
+                                <stop
+                                    offset="50%"
+                                    stop-color="#ff7a3d"
+                                />
+
+                                <stop
+                                    offset="100%"
+                                    stop-color="#c95739"
+                                />
+
+                            </linearGradient>
+
+                        </defs>
+
+
+                        <path
+                            class="chart-line"
+                            d="
+                            M0 110
+                            C70 105 95 92 150 90
+                            C210 87 230 62 300 58
+                            C365 53 390 34 450 40
+                            C510 45 550 75 600 70
+                            "
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <div class="chart-times">
+
+                    <span>
+                        8 AM
+                    </span>
+
+                    <span>
+                        11 AM
+                    </span>
+
+                    <span>
+                        2 PM
+                    </span>
+
+                    <span>
+                        5 PM
+                    </span>
+
+                    <span>
+                        8 PM
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+
+    <!-- ================= SAFETY ACTIONS ================= -->
+
+    <section class="actions-section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                RECOMMENDED ACTIONS
+            </span>
+
+            <h2>
+                What you should do now
+            </h2>
+
+            <p>
+                Simple actions can reduce heat exposure
+                and help protect you and the people
+                around you.
+            </p>
+
+        </div>
+
+
+
+        <div class="action-grid">
+
+
+            <!-- Action 1 -->
+
+            <article class="action-card">
+
+                <span class="action-number">
+                    01
+                </span>
+
+
+                <div class="action-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                    >
+
+                        <path
+                            d="M12 3S6 10 6 14a6 6 0 0 0 12 0c0-4-6-11-6-11Z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <h3>
+                    Stay hydrated
+                </h3>
+
+                <p>
+                    Drink water regularly throughout
+                    the day, even when you do not
+                    feel thirsty.
+                </p>
+
+
+                <button
+                    class="learn-button"
+                    data-title="Stay hydrated"
+                    data-text="Keep water nearby and drink regularly. During prolonged activity, pay extra attention to hydration."
+                >
+                    Learn more
+                    <span>→</span>
+                </button>
+
+            </article>
+
+
+
+            <!-- Action 2 -->
+
+            <article class="action-card">
+
+                <span class="action-number">
+                    02
+                </span>
+
+
+                <div class="action-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                    >
+
+                        <path
+                            d="M5 19V8a7 7 0 0 1 14 0v11"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+
+                        <path
+                            d="M3 19h18"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <h3>
+                    Find a cooler place
+                </h3>
+
+                <p>
+                    Reduce heat exposure by moving
+                    indoors or finding a shaded,
+                    cooler environment.
+                </p>
+
+
+                <button
+                    class="learn-button"
+                    data-title="Find a cooler place"
+                    data-text="Try to stay indoors or use a shaded and ventilated location during the hottest part of the day."
+                >
+                    Learn more
+                    <span>→</span>
+                </button>
+
+            </article>
+
+
+
+            <!-- Action 3 -->
+
+            <article class="action-card">
+
+                <span class="action-number">
+                    03
+                </span>
+
+
+                <div class="action-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                    >
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="4"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+
+                        <path
+                            d="
+                            M12 2V5
+                            M12 19V22
+                            M2 12H5
+                            M19 12H22
+                            "
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <h3>
+                    Reduce sun exposure
+                </h3>
+
+                <p>
+                    Use shade and suitable clothing
+                    when you need to be outdoors.
+                </p>
+
+
+                <button
+                    class="learn-button"
+                    data-title="Reduce sun exposure"
+                    data-text="Use shade whenever possible. Wear lightweight clothing and protect exposed skin from direct sunlight."
+                >
+                    Learn more
+                    <span>→</span>
+                </button>
+
+            </article>
+
+
+
+            <!-- Action 4 -->
+
+            <article class="action-card">
+
+                <span class="action-number">
+                    04
+                </span>
+
+
+                <div class="action-icon">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                    >
+
+                        <circle
+                            cx="9"
+                            cy="8"
+                            r="3"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+
+                        <circle
+                            cx="17"
+                            cy="9"
+                            r="2.3"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                        />
+
+                        <path
+                            d="M3 20c0-4 2.5-6 6-6s6 2 6 6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
+
+                        <path
+                            d="M15 14c3 0 5 1.8 6 5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <h3>
+                    Check on others
+                </h3>
+
+                <p>
+                    Look out for children, older adults
+                    and people who may be more vulnerable
+                    to heat.
+                </p>
+
+
+                <button
+                    class="learn-button"
+                    data-title="Check on others"
+                    data-text="Stay connected with people who may need extra support during periods of dangerous heat."
+                >
+                    Learn more
+                    <span>→</span>
+                </button>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= WARNING ================= -->
+
+    <section class="warning">
+
+        <div class="warning-icon">
+
+            <svg
+                viewBox="0 0 24 24"
+            >
+
+                <path
+                    d="M12 3L22 20H2L12 3Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linejoin="round"
+                />
+
+                <path
+                    d="M12 9v5"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                />
+
+                <circle
+                    cx="12"
+                    cy="17"
+                    r="1"
+                    fill="currentColor"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <div class="warning-content">
+
+            <span>
+                IMPORTANT
+            </span>
+
+            <h2>
+                Know the signs of heat illness.
+            </h2>
+
+            <p>
+                Severe weakness, confusion, fainting
+                or other serious symptoms require
+                immediate attention.
+            </p>
+
+        </div>
+
+
+        <button
+            id="emergencyButton"
+        >
+            Emergency guidance
+            <span>→</span>
+        </button>
+
+    </section>
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Heat<span>Shield</span>
+    </div>
+
+    <p>
+        Public heat awareness and safety platform.
+    </p>
+
+    <span>
+        © 2026 HeatShield
+    </span>
+
+</footer>
+
+
+
+<!-- ================= INFO MODAL ================= -->
+
+<div
+    class="modal"
+    id="infoModal"
+>
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            id="modalClose"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+
+        <span class="eyebrow">
+            HEAT SAFETY
+        </span>
+
+        <h2 id="modalTitle">
+            Safety information
+        </h2>
+
+        <p id="modalText">
+            Information
+        </p>
+
+
+        <button
+            class="modal-done"
+            id="modalDone"
+        >
+            Got it
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script src="js/risk.js"></script>
+
+</body>
+
+</html>

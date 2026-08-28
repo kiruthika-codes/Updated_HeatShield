@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HeatShield | Heat Safety</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/safety.css"
+    >
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+
+        <div class="logo-shield">
+            ☀
+        </div>
+
+        <div class="logo-text">
+
+            <strong>
+                Heat<span>Shield</span>
+            </strong>
+
+            <small>
+                STAY AWARE. STAY SAFE.
+            </small>
+
+        </div>
+
+    </a>
+
+
+    <nav class="nav-links" id="navLinks">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="risk.html">
+            Heat Risk
+        </a>
+
+        <a href="alerts.html">
+            Alerts
+        </a>
+
+        <a href="heat-map.html">
+            Heat Map
+        </a>
+
+        <a
+            href="safety.html"
+            class="active"
+        >
+            Safety
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="location-button"
+            id="locationButton"
+            type="button"
+        >
+            <span>⌖</span>
+
+            <span id="locationText">
+                Your Location
+            </span>
+        </button>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="safety-hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+
+            <span class="pulse-dot"></span>
+
+            HEAT SAFETY GUIDE
+
+        </div>
+
+
+        <h1>
+
+            Protect yourself
+            <br>
+
+            before the
+            <span>heat does.</span>
+
+        </h1>
+
+
+        <p>
+
+            Simple actions can make a big difference
+            during extreme heat. Learn what to do,
+            when to act and who needs extra protection.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <button
+                class="primary-button"
+                id="startGuideButton"
+                type="button"
+            >
+                Start safety guide
+                <strong>→</strong>
+            </button>
+
+
+            <button
+                class="secondary-button"
+                id="symptomsButton"
+                type="button"
+            >
+                Check heat symptoms
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Animated shield -->
+
+    <div class="hero-visual">
+
+        <div class="heat-ring ring-one"></div>
+
+        <div class="heat-ring ring-two"></div>
+
+        <div class="heat-ring ring-three"></div>
+
+
+        <div class="large-shield">
+
+            <div class="shield-sun">
+                ☀
+            </div>
+
+            <span>
+                PROTECT
+            </span>
+
+        </div>
+
+
+        <div class="temperature-bubble">
+            <strong>40°</strong>
+            <small>EXTREME HEAT</small>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= SAFETY TIMELINE ================= -->
+
+<section
+    class="guide-section"
+    id="guide"
+>
+
+    <div class="section-heading">
+
+        <span>
+            SIMPLE STEPS
+        </span>
+
+        <h2>
+            Know what to do
+            <strong>at every stage.</strong>
+        </h2>
+
+        <p>
+            Select a stage to see practical actions
+            you can take during hot conditions.
+        </p>
+
+    </div>
+
+
+    <div class="stage-tabs">
+
+        <button
+            class="stage-tab active"
+            data-stage="before"
+            type="button"
+        >
+            <span>01</span>
+            Before the heat
+        </button>
+
+
+        <button
+            class="stage-tab"
+            data-stage="during"
+            type="button"
+        >
+            <span>02</span>
+            During the heat
+        </button>
+
+
+        <button
+            class="stage-tab"
+            data-stage="after"
+            type="button"
+        >
+            <span>03</span>
+            After exposure
+        </button>
+
+    </div>
+
+
+    <div
+        class="stage-content"
+        id="stageContent"
+    >
+
+        <!-- Javascript fills this -->
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= QUICK ACTIONS ================= -->
+
+<section class="actions-section">
+
+    <div class="section-heading compact">
+
+        <span>
+            EVERYDAY PROTECTION
+        </span>
+
+        <h2>
+            Small actions.
+            <strong>Real protection.</strong>
+        </h2>
+
+    </div>
+
+
+    <div class="action-grid">
+
+
+        <article
+            class="action-card"
+            data-action="water"
+        >
+
+            <div class="action-icon water-icon">
+                +
+            </div>
+
+            <div>
+
+                <h3>
+                    Stay hydrated
+                </h3>
+
+                <p>
+                    Drink water regularly instead of
+                    waiting until you feel thirsty.
+                </p>
+
+                <button type="button">
+                    Learn more →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="action-card"
+            data-action="shade"
+        >
+
+            <div class="action-icon shade-icon">
+                ◐
+            </div>
+
+            <div>
+
+                <h3>
+                    Find shade
+                </h3>
+
+                <p>
+                    Reduce direct sun exposure,
+                    especially during peak heat.
+                </p>
+
+                <button type="button">
+                    Learn more →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="action-card"
+            data-action="clothing"
+        >
+
+            <div class="action-icon clothing-icon">
+                +
+            </div>
+
+            <div>
+
+                <h3>
+                    Dress lightly
+                </h3>
+
+                <p>
+                    Choose loose, lightweight clothing
+                    whenever possible.
+                </p>
+
+                <button type="button">
+                    Learn more →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="action-card"
+            data-action="activity"
+        >
+
+            <div class="action-icon activity-icon">
+                !
+            </div>
+
+            <div>
+
+                <h3>
+                    Reduce activity
+                </h3>
+
+                <p>
+                    Avoid strenuous outdoor activity
+                    during the hottest hours.
+                </p>
+
+                <button type="button">
+                    Learn more →
+                </button>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= VULNERABLE GROUPS ================= -->
+
+<section class="vulnerable-section">
+
+    <div class="vulnerable-intro">
+
+        <div class="eyebrow">
+            WHO NEEDS EXTRA CARE
+        </div>
+
+        <h2>
+            Heat doesn't affect
+            <span>everyone equally.</span>
+        </h2>
+
+        <p>
+            Some people are more vulnerable to
+            heat-related illness and may need
+            additional support.
+        </p>
+
+    </div>
+
+
+    <div class="people-grid">
+
+        <article class="person-card">
+
+            <div class="person-number">
+                01
+            </div>
+
+            <h3>
+                Older adults
+            </h3>
+
+            <p>
+                Check on older family members,
+                neighbours and people living alone.
+            </p>
+
+        </article>
+
+
+        <article class="person-card">
+
+            <div class="person-number">
+                02
+            </div>
+
+            <h3>
+                Young children
+            </h3>
+
+            <p>
+                Keep children cool, hydrated and
+                away from prolonged direct sunlight.
+            </p>
+
+        </article>
+
+
+        <article class="person-card">
+
+            <div class="person-number">
+                03
+            </div>
+
+            <h3>
+                Outdoor workers
+            </h3>
+
+            <p>
+                Take frequent cooling breaks and
+                avoid unnecessary exposure.
+            </p>
+
+        </article>
+
+
+        <article class="person-card">
+
+            <div class="person-number">
+                04
+            </div>
+
+            <h3>
+                People with health risks
+            </h3>
+
+            <p>
+                Follow medical advice and take
+                extra precautions during heat events.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= SYMPTOM CHECKER ================= -->
+
+<section
+    class="symptom-section"
+    id="symptoms"
+>
+
+    <div class="symptom-header">
+
+        <div>
+
+            <div class="eyebrow">
+                KNOW THE WARNING SIGNS
+            </div>
+
+            <h2>
+                Is the heat
+                <strong>affecting you?</strong>
+            </h2>
+
+            <p>
+                Select the symptoms you are experiencing
+                to understand when extra care may be needed.
+            </p>
+
+        </div>
+
+
+        <div class="symptom-status">
+
+            <span id="symptomCount">
+                0
+            </span>
+
+            selected
+
+        </div>
+
+    </div>
+
+
+    <div class="symptom-layout">
+
+        <div class="symptom-options">
+
+
+            <button
+                class="symptom-option"
+                data-symptom="thirst"
+                type="button"
+            >
+                <span></span>
+                Strong thirst
+            </button>
+
+
+            <button
+                class="symptom-option"
+                data-symptom="sweating"
+                type="button"
+            >
+                <span></span>
+                Heavy sweating
+            </button>
+
+
+            <button
+                class="symptom-option"
+                data-symptom="headache"
+                type="button"
+            >
+                <span></span>
+                Headache
+            </button>
+
+
+            <button
+                class="symptom-option"
+                data-symptom="dizziness"
+                type="button"
+            >
+                <span></span>
+                Dizziness
+            </button>
+
+
+            <button
+                class="symptom-option"
+                data-symptom="weakness"
+                type="button"
+            >
+                <span></span>
+                Weakness
+            </button>
+
+
+            <button
+                class="symptom-option"
+                data-symptom="confusion"
+                type="button"
+            >
+                <span></span>
+                Confusion
+            </button>
+
+        </div>
+
+
+        <div
+            class="symptom-result"
+            id="symptomResult"
+        >
+
+            <div class="result-icon">
+                ✓
+            </div>
+
+            <h3>
+                Stay alert
+            </h3>
+
+            <p>
+                Select any symptoms you are experiencing
+                to see general safety guidance.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= EMERGENCY ================= -->
+
+<section class="emergency-section">
+
+    <div class="emergency-content">
+
+        <span class="emergency-label">
+            IMPORTANT
+        </span>
+
+        <h2>
+            Know when heat
+            becomes an emergency.
+        </h2>
+
+        <p>
+            Severe symptoms such as confusion,
+            loss of consciousness or very hot skin
+            can indicate a serious heat-related
+            emergency.
+        </p>
+
+    </div>
+
+
+    <button
+        class="emergency-button"
+        id="emergencyButton"
+        type="button"
+    >
+        View emergency guidance
+        <span>→</span>
+    </button>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+</main>
+
+
+<footer>
+
+    <div class="footer-logo">
+        Heat<span>Shield</span>
+    </div>
+
+    <p>
+        Public heat awareness and safety platform.
+    </p>
+
+    <span>
+        © 2026 HeatShield
+    </span>
+
+</footer>
+
+
+<script src="js/safety.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HeatShield | Heat Alerts</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Alerts CSS -->
+    <link
+        rel="stylesheet"
+        href="css/alerts.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <!-- LOGO -->
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <div class="logo-shield">
+            ☀
+        </div>
+
+        <div class="logo-text">
+
+            <strong>
+                Heat<span>Shield</span>
+            </strong>
+
+            <small>
+                STAY AWARE. STAY SAFE.
+            </small>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- NAVIGATION -->
+
+    <nav
+        class="nav-links"
+        id="navLinks"
+    >
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="risk.html">
+            Heat Risk
+        </a>
+
+        <a
+            href="alerts.html"
+            class="active"
+        >
+            Alerts
+        </a>
+
+        <a href="heat-map.html">
+            Heat Map
+        </a>
+
+        <a href="safety.html">
+            Safety
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+    </nav>
+
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="nav-actions">
+
+        <button
+            class="location-button"
+            id="locationButton"
+            type="button"
+        >
+
+            <span>
+                ⌖
+            </span>
+
+            <span id="locationText">
+                Your Location
+            </span>
+
+        </button>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="alerts-hero">
+
+
+    <div class="hero-glow"></div>
+
+
+    <div class="alerts-hero-content">
+
+
+        <div class="eyebrow">
+
+            <span class="pulse-dot"></span>
+
+            HEAT ALERT CENTER
+
+        </div>
+
+
+        <h1>
+
+            Stay informed.
+            <br>
+
+            <span>Act before the heat does.</span>
+
+        </h1>
+
+
+        <p>
+
+            Receive clear warnings about dangerous
+            heat conditions and understand what you
+            should do to stay safe.
+
+        </p>
+
+
+        <!-- ALERT STATUS -->
+
+        <div class="alert-status">
+
+            <span class="status-dot"></span>
+
+            <div>
+
+                <strong>
+                    Alerts are active
+                </strong>
+
+                <small>
+                    Monitoring conditions in your area
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ALERT OVERVIEW
+===================================================== -->
+
+<section class="alerts-section">
+
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="section-label">
+                CURRENT ALERTS
+            </span>
+
+            <h2>
+                Heat conditions
+                <strong>need your attention.</strong>
+            </h2>
+
+        </div>
+
+
+        <div class="alert-filter">
+
+            <button
+                class="filter-button active"
+                data-filter="all"
+            >
+                All
+            </button>
+
+            <button
+                class="filter-button"
+                data-filter="high"
+            >
+                High
+            </button>
+
+            <button
+                class="filter-button"
+                data-filter="extreme"
+            >
+                Extreme
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ALERT CARDS -->
+
+    <div
+        class="alerts-grid"
+        id="alertsGrid"
+    >
+
+
+        <!-- HIGH ALERT -->
+
+        <article
+            class="alert-card high"
+            data-level="high"
+        >
+
+            <div class="alert-card-top">
+
+                <div class="alert-icon">
+                    !
+                </div>
+
+                <span class="alert-level">
+                    HIGH
+                </span>
+
+            </div>
+
+
+            <div class="alert-card-content">
+
+                <span class="alert-time">
+                    TODAY • 12:00 PM – 4:00 PM
+                </span>
+
+                <h3>
+                    High heat conditions expected
+                </h3>
+
+                <p>
+
+                    Temperatures may reach dangerous
+                    levels during the afternoon.
+                    Limit prolonged outdoor activity.
+
+                </p>
+
+            </div>
+
+
+            <div class="alert-card-footer">
+
+                <span>
+                    Your area
+                </span>
+
+                <button
+                    class="view-alert-button"
+                    data-alert="high"
+                >
+                    View details →
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- EXTREME ALERT -->
+
+        <article
+            class="alert-card extreme"
+            data-level="extreme"
+        >
+
+            <div class="alert-card-top">
+
+                <div class="alert-icon">
+                    !
+                </div>
+
+                <span class="alert-level">
+                    EXTREME
+                </span>
+
+            </div>
+
+
+            <div class="alert-card-content">
+
+                <span class="alert-time">
+                    TOMORROW • 11:00 AM – 5:00 PM
+                </span>
+
+                <h3>
+                    Extreme heat may develop
+                </h3>
+
+                <p>
+
+                    Conditions could become hazardous,
+                    especially for older adults,
+                    children and people working outdoors.
+
+                </p>
+
+            </div>
+
+
+            <div class="alert-card-footer">
+
+                <span>
+                    Nearby region
+                </span>
+
+                <button
+                    class="view-alert-button"
+                    data-alert="extreme"
+                >
+                    View details →
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- INFORMATION CARD -->
+
+        <article
+            class="alert-card information"
+            data-level="all"
+        >
+
+            <div class="alert-card-top">
+
+                <div class="alert-icon">
+                    i
+                </div>
+
+                <span class="alert-level">
+                    INFORMATION
+                </span>
+
+            </div>
+
+
+            <div class="alert-card-content">
+
+                <span class="alert-time">
+                    THIS WEEK
+                </span>
+
+                <h3>
+                    Warmer conditions may continue
+                </h3>
+
+                <p>
+
+                    Stay updated throughout the week
+                    as temperatures and heat conditions
+                    change.
+
+                </p>
+
+            </div>
+
+
+            <div class="alert-card-footer">
+
+                <span>
+                    HeatShield monitoring
+                </span>
+
+                <button
+                    class="view-alert-button"
+                    data-alert="information"
+                >
+                    Learn more →
+                </button>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <!-- EMPTY STATE -->
+
+    <div
+        class="empty-alerts"
+        id="emptyAlerts"
+    >
+
+        <div class="empty-icon">
+            ✓
+        </div>
+
+        <h3>
+            No alerts in this category
+        </h3>
+
+        <p>
+            There are currently no matching
+            heat alerts.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WHAT TO DO
+===================================================== -->
+
+<section class="action-section">
+
+
+    <div class="action-card">
+
+
+        <div class="action-content">
+
+            <span class="section-label">
+                WHEN AN ALERT APPEARS
+            </span>
+
+            <h2>
+                Don't just see the warning.
+                <strong>Know what to do.</strong>
+            </h2>
+
+            <p>
+
+                HeatShield turns an alert into
+                simple actions that can help reduce
+                heat exposure and protect vulnerable
+                people around you.
+
+            </p>
+
+
+            <button
+                class="safety-button"
+                id="safetyButton"
+                type="button"
+            >
+
+                View safety steps
+
+                <span>
+                    →
+                </span>
+
+            </button>
+
+        </div>
+
+
+
+        <div class="action-steps">
+
+
+            <div class="action-step">
+
+                <span>
+                    01
+                </span>
+
+                <div>
+
+                    <strong>
+                        Stay cool
+                    </strong>
+
+                    <p>
+                        Move to a cooler place.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="action-step">
+
+                <span>
+                    02
+                </span>
+
+                <div>
+
+                    <strong>
+                        Stay hydrated
+                    </strong>
+
+                    <p>
+                        Drink water regularly.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="action-step">
+
+                <span>
+                    03
+                </span>
+
+                <div>
+
+                    <strong>
+                        Check on others
+                    </strong>
+
+                    <p>
+                        Help vulnerable people nearby.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NOTIFICATION PANEL
+===================================================== -->
+
+<section class="notification-section">
+
+
+    <div class="notification-card">
+
+
+        <div class="notification-icon">
+            +
+        </div>
+
+
+        <div class="notification-content">
+
+            <span class="section-label">
+                HEATSHIELD NOTIFICATIONS
+            </span>
+
+            <h3>
+                Stay updated when conditions change.
+            </h3>
+
+            <p>
+                Enable notifications to receive
+                important heat updates.
+            </p>
+
+        </div>
+
+
+        <button
+            class="notification-button"
+            id="notificationButton"
+            type="button"
+        >
+            Enable alerts
+        </button>
+
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     ALERT MODAL
+===================================================== -->
+
+<div
+    class="alert-modal"
+    id="alertModal"
+>
+
+
+    <div class="modal-overlay"></div>
+
+
+    <div class="modal-card">
+
+
+        <button
+            class="modal-close"
+            id="modalClose"
+            type="button"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+
+        <div
+            class="modal-icon"
+            id="modalIcon"
+        >
+            !
+        </div>
+
+
+        <span
+            class="modal-label"
+            id="modalLabel"
+        >
+            HIGH ALERT
+        </span>
+
+
+        <h2
+            id="modalTitle"
+        >
+            High heat conditions expected
+        </h2>
+
+
+        <p
+            id="modalText"
+        >
+            Temperatures may reach dangerous
+            levels. Take precautions and avoid
+            prolonged exposure to heat.
+        </p>
+
+
+        <div class="modal-actions">
+
+            <button
+                id="modalSafetyButton"
+                type="button"
+            >
+                View safety guide
+            </button>
+
+            <button
+                class="modal-dismiss"
+                id="modalDismiss"
+                type="button"
+            >
+                Close
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        Heat<span>Shield</span>
+    </div>
+
+    <p>
+        Public heat awareness and safety platform.
+    </p>
+
+    <span>
+        © 2026 HeatShield
+    </span>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="js/alerts.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HeatShield | Stay Safe From Extreme Heat</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/landing.css"
+    >
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+
+        <div class="logo-shield">
+            ☀
+        </div>
+
+        <div class="logo-text">
+            <strong>Heat<span>Shield</span></strong>
+            <small>STAY AWARE. STAY SAFE.</small>
+        </div>
+
+    </a>
+
+
+    <nav class="nav-links" id="navLinks">
+
+        <a href="#home" class="active">
+            Home
+        </a>
+
+        <a href="risk.html">
+            Heat Risk
+        </a>
+
+        <a href="alerts.html">
+            Alerts
+        </a>
+
+        <a href="heat-map.html">
+            Heat Map
+        </a>
+
+        <a href="safety.html">
+            Safety
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="location-button"
+            id="locationButton"
+        >
+            <span>⌖</span>
+            <span id="locationText">
+                Your Location
+            </span>
+        </button>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Open navigation"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- ================= HERO ================= -->
+
+<main>
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <!-- Background -->
+
+    <div class="hero-background"></div>
+
+    <div class="hero-overlay"></div>
+
+
+    <!-- Decorative particles -->
+
+    <div class="heat-particle particle-one"></div>
+    <div class="heat-particle particle-two"></div>
+    <div class="heat-particle particle-three"></div>
+
+
+    <!-- HERO CONTENT -->
+
+    <div class="hero-content">
+
+        <div class="hero-left">
+
+            <div class="eyebrow">
+
+                <span class="pulse-dot"></span>
+
+                PUBLIC HEAT SAFETY PLATFORM
+
+            </div>
+
+
+            <h1>
+                Stay aware.
+                <br>
+
+                Stay safe from
+                <span>extreme heat.</span>
+            </h1>
+
+
+            <p class="hero-description">
+
+                Understand heat risks, receive timely
+                warnings and discover simple actions
+                that can protect you and your community
+                during extreme heat.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <button
+                    class="primary-button"
+                    id="checkRiskButton"
+                >
+                    <span>☀</span>
+
+                    Check Heat Risk
+
+                    <strong>→</strong>
+                </button>
+
+
+                <button
+                    class="secondary-button"
+                    id="learnButton"
+                >
+                    <span class="play-icon">
+                        ▶
+                    </span>
+
+                    How HeatShield Works
+                </button>
+
+            </div>
+
+
+            <div class="public-note">
+
+                <div class="public-icon">
+                    ♡
+                </div>
+
+                <div>
+                    <strong>
+                        Built for everyone
+                    </strong>
+
+                    <span>
+                        Simple heat-safety information
+                        for communities.
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= RISK CARD ================= -->
+
+        <div class="hero-right">
+
+            <div class="risk-card">
+
+                <div class="risk-card-header">
+
+                    <div>
+
+                        <span class="card-label">
+                            CURRENT HEAT STATUS
+                        </span>
+
+                        <h3>
+                            Your Area
+                        </h3>
+
+                    </div>
+
+
+                    <div class="live-indicator">
+
+                        <span></span>
+
+                        LIVE
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Temperature -->
+
+                <div class="temperature-area">
+
+                    <div class="temperature-icon">
+                        ☀
+                    </div>
+
+                    <div>
+
+                        <strong id="temperature">
+                            38°
+                        </strong>
+
+                        <span>
+                            C
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Risk -->
+
+                <div class="risk-status">
+
+                    <span class="risk-dot"></span>
+
+                    <strong>
+                        HIGH HEAT RISK
+                    </strong>
+
+                </div>
+
+
+                <p class="feels-like">
+                    Feels like
+                    <strong>42°C</strong>
+                </p>
+
+
+
+                <!-- Risk Meter -->
+
+                <div class="risk-meter">
+
+                    <div class="meter-track">
+
+                        <div class="meter-fill"></div>
+
+                        <div class="meter-marker"></div>
+
+                    </div>
+
+
+                    <div class="meter-labels">
+
+                        <span>Low</span>
+
+                        <span>Moderate</span>
+
+                        <span>High</span>
+
+                        <span>Extreme</span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Weather information -->
+
+                <div class="weather-grid">
+
+                    <div>
+
+                        <span class="weather-icon">
+                            💧
+                        </span>
+
+                        <strong>
+                            48%
+                        </strong>
+
+                        <small>
+                            Humidity
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="weather-icon">
+                            ☀
+                        </span>
+
+                        <strong>
+                            8
+                        </strong>
+
+                        <small>
+                            UV Index
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="weather-icon">
+                            ↝
+                        </span>
+
+                        <strong>
+                            12
+                        </strong>
+
+                        <small>
+                            km/h Wind
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Advice -->
+
+                <div class="quick-advice">
+
+                    <span>
+                        !
+                    </span>
+
+                    <p>
+                        Avoid prolonged outdoor activity
+                        between
+                        <strong>12 PM – 4 PM.</strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SCROLL -->
+
+    <button
+        class="scroll-button"
+        id="scrollButton"
+    >
+        <span>
+            Scroll to explore
+        </span>
+
+        ↓
+    </button>
+
+</section>
+
+
+
+<!-- ================= QUICK SERVICES ================= -->
+
+<section
+    class="services-section"
+    id="services"
+>
+
+    <div class="section-heading">
+
+        <span>
+            HEATSHIELD SERVICES
+        </span>
+
+        <h2>
+            Everything you need to
+            <strong>stay heat-safe.</strong>
+        </h2>
+
+        <p>
+            From understanding today's risk to finding
+            help nearby, HeatShield keeps essential
+            heat-safety tools in one place.
+        </p>
+
+    </div>
+
+
+    <div class="services-grid">
+
+
+        <article
+            class="service-card"
+            data-page="risk.html"
+        >
+
+            <div class="service-number">
+                01
+            </div>
+
+            <div class="service-icon orange">
+                ☀
+            </div>
+
+            <h3>
+                Know Your Risk
+            </h3>
+
+            <p>
+                Understand current heat conditions and
+                how dangerous they may be.
+            </p>
+
+            <button>
+                Check risk →
+            </button>
+
+        </article>
+
+
+
+        <article
+            class="service-card"
+            data-page="alerts.html"
+        >
+
+            <div class="service-number">
+                02
+            </div>
+
+            <div class="service-icon red">
+                !
+            </div>
+
+            <h3>
+                Heat Alerts
+            </h3>
+
+            <p>
+                View important heat warnings and
+                recommended precautions.
+            </p>
+
+            <button>
+                View alerts →
+            </button>
+
+        </article>
+
+
+
+        <article
+            class="service-card"
+            data-page="safety.html"
+        >
+
+            <div class="service-number">
+                03
+            </div>
+
+            <div class="service-icon yellow">
+                ♡
+            </div>
+
+            <h3>
+                Stay Protected
+            </h3>
+
+            <p>
+                Get practical heat-safety guidance for
+                yourself and vulnerable groups.
+            </p>
+
+            <button>
+                Safety guide →
+            </button>
+
+        </article>
+
+
+
+        <article
+            class="service-card"
+            data-page="nearby.html"
+        >
+
+            <div class="service-number">
+                04
+            </div>
+
+            <div class="service-icon blue">
+                ⌖
+            </div>
+
+            <h3>
+                Find Nearby Help
+            </h3>
+
+            <p>
+                Discover cooling locations, water
+                points and useful nearby resources.
+            </p>
+
+            <button>
+                Find help →
+            </button>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= ABOUT ================= -->
+
+<section
+    class="about-section"
+    id="about"
+>
+
+    <div class="about-card">
+
+        <div class="about-content">
+
+            <span>
+                WHY HEATSHIELD?
+            </span>
+
+            <h2>
+                Heat information should lead to
+                <strong>action.</strong>
+            </h2>
+
+            <p>
+                HeatShield transforms complex heat
+                conditions into understandable risk
+                levels and clear safety guidance,
+                helping communities make safer
+                decisions during extreme heat.
+            </p>
+
+        </div>
+
+
+        <div class="about-stat">
+
+            <strong>
+                ☀
+            </strong>
+
+            <span>
+                Understand.
+                <br>
+                Prepare.
+                <br>
+                Protect.
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Heat<span>Shield</span>
+    </div>
+
+    <p>
+        Public heat awareness and safety platform.
+    </p>
+
+    <span>
+        © 2026 HeatShield
+    </span>
+
+</footer>
+
+
+
+<script src="js/landing.js"></script>
+
+</body>
+
+</html>
