@@ -1,17 +1,38 @@
-// =====================================================
-// HEATSHIELD — HEAT MAP
-// =====================================================
+/* =====================================================
+   HEATSHIELD — HEAT MAP JAVASCRIPT
+===================================================== */
 
 
-// =====================================================
-// ELEMENTS
-// =====================================================
+const API_URL = "http://localhost:5000";
 
-const navLinks =
-    document.getElementById("navLinks");
 
-const menuButton =
-    document.getElementById("menuButton");
+let heatMap;
+
+let selectedMarker = null;
+
+
+const DEFAULT_LOCATION = {
+
+    name: "World",
+
+    latitude: 20,
+
+    longitude: 0
+
+};
+
+
+/* =====================================================
+   DOM ELEMENTS
+===================================================== */
+
+
+const searchInput =
+    document.getElementById("locationSearch");
+
+const searchButton =
+    document.getElementById("searchButton");
+
 
 const locationButton =
     document.getElementById("locationButton");
@@ -19,44 +40,13 @@ const locationButton =
 const locationText =
     document.getElementById("locationText");
 
-const locationSearch =
-    document.getElementById("locationSearch");
 
-const searchButton =
-    document.getElementById("searchButton");
-
-const mapWorld =
-    document.getElementById("mapWorld");
-
-const heatZones =
-    document.querySelectorAll(".heat-zone");
-
-const mapFilters =
-    document.querySelectorAll(".map-filter");
-
-const zoomIn =
-    document.getElementById("zoomIn");
-
-const zoomOut =
-    document.getElementById("zoomOut");
-
-const resetMap =
-    document.getElementById("resetMap");
-
-const currentLocation =
-    document.getElementById("currentLocation");
-
-const zonePanel =
+const panel =
     document.getElementById("zonePanel");
 
 const panelClose =
     document.getElementById("panelClose");
 
-const panelRiskIcon =
-    document.getElementById("panelRiskIcon");
-
-const panelRiskLevel =
-    document.getElementById("panelRiskLevel");
 
 const panelLocation =
     document.getElementById("panelLocation");
@@ -64,758 +54,2008 @@ const panelLocation =
 const panelDescription =
     document.getElementById("panelDescription");
 
+
 const panelTemperature =
     document.getElementById("panelTemperature");
+
 
 const panelFeels =
     document.getElementById("panelFeels");
 
+
 const panelHumidity =
     document.getElementById("panelHumidity");
+
+
+const panelWind =
+    document.getElementById("panelWind");
+
 
 const panelUV =
     document.getElementById("panelUV");
 
-const panelSafetyButton =
-    document.getElementById("panelSafetyButton");
 
+const panelHeatIndex =
+    document.getElementById("panelHeatIndex");
 
-// =====================================================
-// ZONE DATA
-// =====================================================
 
-const zoneData = {
+const panelCoordinates =
+    document.getElementById("panelCoordinates");
 
-    "Greenfield": {
 
-        risk: "low",
+const panelRiskLevel =
+    document.getElementById("panelRiskLevel");
 
-        level: "LOW RISK",
 
-        temperature: "31°",
+const panelRiskIcon =
+    document.getElementById("panelRiskIcon");
 
-        feels: "33°C",
 
-        humidity: "52%",
+const panelSafety =
+    document.getElementById("panelSafety");
 
-        uv: "5",
 
-        description:
-            "Heat conditions are currently manageable. Basic precautions are recommended."
+const panelRiskButton =
+    document.getElementById("panelRiskButton");
 
-    },
 
+const trendSummary =
+    document.getElementById("trendSummary");
 
-    "Lakeside": {
 
-        risk: "moderate",
+const menuButton =
+    document.getElementById("menuButton");
 
-        level: "MODERATE RISK",
 
-        temperature: "35°",
+const navLinks =
+    document.getElementById("navLinks");
 
-        feels: "38°C",
 
-        humidity: "55%",
+/* =====================================================
+   INITIALIZE MAP
+===================================================== */
 
-        uv: "7",
 
-        description:
-            "Heat is becoming noticeable. Stay hydrated and take regular breaks."
+function initializeMap() {
 
-    },
 
+    heatMap = L.map("mapWorld", {
 
-    "Central City": {
+        center: [
+            DEFAULT_LOCATION.latitude,
+            DEFAULT_LOCATION.longitude
+        ],
 
-        risk: "high",
+        zoom: 2,
 
-        level: "HIGH RISK",
+        minZoom: 2,
 
-        temperature: "39°",
+        maxZoom: 18,
 
-        feels: "43°C",
-
-        humidity: "48%",
-
-        uv: "8",
-
-        description:
-            "Heat conditions are elevated. Limit prolonged outdoor activity during the hottest hours."
-
-    },
-
-
-    "East District": {
-
-        risk: "extreme",
-
-        level: "EXTREME RISK",
-
-        temperature: "42°",
-
-        feels: "47°C",
-
-        humidity: "51%",
-
-        uv: "10",
-
-        description:
-            "Dangerously high heat conditions are present. Avoid unnecessary outdoor exposure."
-
-    },
-
-
-    "South Market": {
-
-        risk: "high",
-
-        level: "HIGH RISK",
-
-        temperature: "38°",
-
-        feels: "42°C",
-
-        humidity: "57%",
-
-        uv: "9",
-
-        description:
-            "High heat is expected. Reduce outdoor exposure and stay hydrated."
-
-    },
-
-
-    "West Park": {
-
-        risk: "moderate",
-
-        level: "MODERATE RISK",
-
-        temperature: "34°",
-
-        feels: "37°C",
-
-        humidity: "50%",
-
-        uv: "7",
-
-        description:
-            "Moderate heat conditions are present. Keep water nearby and take regular breaks."
-
-    },
-
-
-    "Industrial Area": {
-
-        risk: "extreme",
-
-        level: "EXTREME RISK",
-
-        temperature: "43°",
-
-        feels: "48°C",
-
-        humidity: "46%",
-
-        uv: "11",
-
-        description:
-            "Extreme heat conditions are present. Outdoor workers should take frequent cooling breaks."
-
-    }
-
-};
-
-
-// =====================================================
-// NAVIGATION
-// =====================================================
-
-if (menuButton) {
-
-    menuButton.addEventListener(
-        "click",
-        () => {
-
-            navLinks.classList.toggle(
-                "open"
-            );
-
-        }
-    );
-
-}
-
-
-document
-    .querySelectorAll(".nav-links a")
-    .forEach(link => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
-                navLinks.classList.remove(
-                    "open"
-                );
-
-            }
-        );
+        worldCopyJump: true
 
     });
 
 
-// =====================================================
-// MAP ZOOM
-// =====================================================
+    /* OpenStreetMap */
 
-let mapScale = 1;
+    L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
 
-const MIN_ZOOM = 1;
+            maxZoom: 19,
 
-const MAX_ZOOM = 1.8;
-
-const ZOOM_STEP = 0.2;
-
-
-function updateMapZoom() {
-
-    mapWorld.style.transform =
-        `scale(${mapScale})`;
-
-}
-
-
-zoomIn.addEventListener(
-    "click",
-    () => {
-
-        if (
-            mapScale < MAX_ZOOM
-        ) {
-
-            mapScale =
-                Math.min(
-                    mapScale + ZOOM_STEP,
-                    MAX_ZOOM
-                );
-
-            updateMapZoom();
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
 
         }
 
-    }
-);
+    ).addTo(heatMap);
 
 
-zoomOut.addEventListener(
-    "click",
-    () => {
-
-        if (
-            mapScale > MIN_ZOOM
-        ) {
-
-            mapScale =
-                Math.max(
-                    mapScale - ZOOM_STEP,
-                    MIN_ZOOM
-                );
-
-            updateMapZoom();
-
-        }
-
-    }
-);
-
-
-resetMap.addEventListener(
-    "click",
-    () => {
-
-        mapScale = 1;
-
-        updateMapZoom();
-
-    }
-);
-
-
-// =====================================================
-// MAP FILTER
-// =====================================================
-
-mapFilters.forEach(
-    filter => {
-
-        filter.addEventListener(
-            "click",
-            () => {
-
-                mapFilters.forEach(
-                    item => {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                filter.classList.add(
-                    "active"
-                );
-
-
-                const selectedRisk =
-                    filter.dataset.risk;
-
-
-                heatZones.forEach(
-                    zone => {
-
-                        const risk =
-                            zone.dataset.risk;
-
-
-                        if (
-                            selectedRisk ===
-                            "all"
-                        ) {
-
-                            zone.style.display =
-                                "flex";
-
-                        }
-
-                        else {
-
-                            zone.style.display =
-                                risk ===
-                                selectedRisk
-                                    ? "flex"
-                                    : "none";
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-    }
-);
-
-
-// =====================================================
-// RISK COLORS
-// =====================================================
-
-function getRiskColor(risk) {
-
-    const colors = {
-
-        low: "#56a986",
-
-        moderate: "#c4a85b",
-
-        high: "#e8794c",
-
-        extreme: "#c85d53"
-
-    };
-
-    return colors[risk];
+    setupMapControls();
 
 }
 
 
-// =====================================================
-// SHOW AREA
-// =====================================================
+/* =====================================================
+   MAP CONTROLS
+===================================================== */
 
-function showZone(location) {
 
-    const data =
-        zoneData[location];
+function setupMapControls() {
 
 
-    if (!data) {
-        return;
-    }
+    const zoomIn =
+        document.getElementById("zoomIn");
 
 
-    const color =
-        getRiskColor(
-            data.risk
-        );
+    const zoomOut =
+        document.getElementById("zoomOut");
 
 
-    panelLocation.textContent =
-        location;
+    const resetMap =
+        document.getElementById("resetMap");
 
 
-    panelRiskLevel.textContent =
-        data.level;
+    zoomIn.addEventListener("click", () => {
 
+        heatMap.zoomIn();
 
-    panelDescription.textContent =
-        data.description;
+    });
 
 
-    panelTemperature.textContent =
-        data.temperature;
+    zoomOut.addEventListener("click", () => {
 
+        heatMap.zoomOut();
 
-    panelFeels.textContent =
-        data.feels;
+    });
 
 
-    panelHumidity.textContent =
-        data.humidity;
+    resetMap.addEventListener("click", () => {
 
+        heatMap.flyTo(
 
-    panelUV.textContent =
-        data.uv;
-
-
-    panelRiskIcon.style.color =
-        color;
-
-
-    panelRiskIcon.style.background =
-        `${color}18`;
-
-
-    panelRiskLevel.style.color =
-        color;
-
-
-    panelRiskLevel.style.background =
-        `${color}14`;
-
-
-    if (
-        data.risk === "low"
-    ) {
-
-        panelRiskIcon.textContent =
-            "✓";
-
-    }
-
-    else if (
-        data.risk === "moderate"
-    ) {
-
-        panelRiskIcon.textContent =
-            "•";
-
-    }
-
-    else {
-
-        panelRiskIcon.textContent =
-            "!";
-
-    }
-
-}
-
-
-// =====================================================
-// HEAT ZONE CLICK
-// =====================================================
-
-heatZones.forEach(
-    zone => {
-
-        zone.addEventListener(
-            "click",
-            () => {
-
-                const location =
-                    zone.dataset.location;
-
-
-                showZone(location);
-
-
-                // Small visual feedback
-
-                zone.animate(
-                    [
-                        {
-                            transform:
-                                "translate(-50%, -50%) scale(1)"
-                        },
-
-                        {
-                            transform:
-                                "translate(-50%, -50%) scale(1.5)"
-                        },
-
-                        {
-                            transform:
-                                "translate(-50%, -50%) scale(1)"
-                        }
-
-                    ],
-                    {
-                        duration: 500
-                    }
-                );
-
-            }
-        );
-
-    }
-);
-
-
-// =====================================================
-// CLOSE PANEL
-// =====================================================
-
-panelClose.addEventListener(
-    "click",
-    () => {
-
-        panelLocation.textContent =
-            "Select an area";
-
-        panelDescription.textContent =
-            "Click any heat zone on the map to see detailed conditions.";
-
-        panelTemperature.textContent =
-            "--";
-
-        panelFeels.textContent =
-            "--";
-
-        panelHumidity.textContent =
-            "--";
-
-        panelUV.textContent =
-            "--";
-
-        panelRiskLevel.textContent =
-            "NO AREA SELECTED";
-
-        panelRiskIcon.textContent =
-            "•";
-
-        panelRiskIcon.style.color =
-            "#69737d";
-
-        panelRiskIcon.style.background =
-            "rgba(255,255,255,0.04)";
-
-    }
-);
-
-
-// =====================================================
-// SEARCH
-// =====================================================
-
-function searchLocation() {
-
-    const query =
-        locationSearch.value
-            .trim()
-            .toLowerCase();
-
-
-    if (!query) {
-
-        locationSearch.focus();
-
-        return;
-
-    }
-
-
-    const location =
-        Object.keys(zoneData)
-            .find(
-                name =>
-                    name
-                        .toLowerCase()
-                        .includes(query)
-            );
-
-
-    if (!location) {
-
-        alert(
-            "No matching area found on the HeatShield demo map."
-        );
-
-        return;
-
-    }
-
-
-    showZone(location);
-
-
-    const zone =
-        [...heatZones]
-            .find(
-                item =>
-                    item.dataset.location ===
-                    location
-            );
-
-
-    if (zone) {
-
-        zone.animate(
             [
-                {
-                    transform:
-                        "translate(-50%, -50%) scale(1)"
-                },
-
-                {
-                    transform:
-                        "translate(-50%, -50%) scale(1.7)"
-                },
-
-                {
-                    transform:
-                        "translate(-50%, -50%) scale(1)"
-                }
-
+                DEFAULT_LOCATION.latitude,
+                DEFAULT_LOCATION.longitude
             ],
+
+            2,
+
             {
-                duration: 700
+
+                duration: 1
+
             }
+
         );
 
-    }
+    });
 
 }
 
 
-searchButton.addEventListener(
-    "click",
-    searchLocation
-);
+/* =====================================================
+   SEARCH LOCATION
+===================================================== */
 
 
-locationSearch.addEventListener(
-    "keydown",
-    event => {
+async function searchLocation() {
 
-        if (
-            event.key === "Enter"
-        ) {
 
-            searchLocation();
+    const searchText =
+        searchInput.value.trim();
+
+
+    if (!searchText) {
+
+        alert("Please enter a location.");
+
+        return;
+
+    }
+
+
+    searchButton.disabled = true;
+
+    searchButton.textContent = "Searching...";
+
+
+    try {
+
+
+        const response = await fetch(
+
+            `${API_URL}/api/search-location?city=${encodeURIComponent(searchText)}`
+
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Location search failed"
+            );
 
         }
 
-    }
-);
 
+        const data =
+            await response.json();
 
-// =====================================================
-// LOCATION
-// =====================================================
-
-locationButton.addEventListener(
-    "click",
-    () => {
 
         if (
-            !navigator.geolocation
+            !data.results ||
+            data.results.length === 0
         ) {
 
-            locationText.textContent =
-                "Unavailable";
+            alert(
+                `No location found for "${searchText}".`
+            );
 
             return;
 
         }
 
 
-        locationText.textContent =
-            "Detecting...";
+        const result =
+            data.results[0];
 
 
-        navigator.geolocation.getCurrentPosition(
+        const location = {
 
-            position => {
+            name:
+                buildLocationName(result),
 
-                localStorage.setItem(
-                    "heatShieldLocation",
-                    JSON.stringify({
+            latitude:
+                Number(result.latitude),
 
-                        latitude:
-                            position.coords.latitude,
+            longitude:
+                Number(result.longitude)
 
-                        longitude:
-                            position.coords.longitude
-
-                    })
-                );
+        };
 
 
-                locationText.textContent =
-                    "Location detected";
+        await selectLocation(location);
 
 
-                currentLocation.style.display =
-                    "flex";
+    }
 
-            },
+    catch (error) {
 
 
-            () => {
+        console.error(
 
-                locationText.textContent =
-                    "Try again";
+            "Location search error:",
+
+            error
+
+        );
+
+
+        alert(
+            "Unable to search location. Make sure the backend is running."
+        );
+
+
+    }
+
+    finally {
+
+
+        searchButton.disabled = false;
+
+        searchButton.textContent = "Search";
+
+    }
+
+}
+
+
+/* =====================================================
+   BUILD LOCATION NAME
+===================================================== */
+
+
+function buildLocationName(result) {
+
+
+    const parts = [];
+
+
+    if (result.name) {
+
+        parts.push(result.name);
+
+    }
+
+
+    if (
+        result.state &&
+        result.state !== result.name
+    ) {
+
+        parts.push(result.state);
+
+    }
+
+
+    if (result.country) {
+
+        parts.push(result.country);
+
+    }
+
+
+    return parts.join(", ");
+
+}
+
+
+/* =====================================================
+   SELECT LOCATION
+===================================================== */
+
+
+async function selectLocation(location) {
+
+
+    const {
+        name,
+        latitude,
+        longitude
+    } = location;
+
+
+    /* Save location */
+
+    localStorage.setItem(
+
+        "heatShieldSelectedLocation",
+
+        JSON.stringify(location)
+
+    );
+
+
+    /* Move map */
+
+    heatMap.flyTo(
+
+        [
+            latitude,
+            longitude
+        ],
+
+        10,
+
+        {
+
+            duration: 1.3
+
+        }
+
+    );
+
+
+    /* Remove previous marker */
+
+    if (selectedMarker) {
+
+        heatMap.removeLayer(
+
+            selectedMarker
+
+        );
+
+    }
+
+
+    /* Load risk data */
+
+    try {
+
+
+        const riskData =
+            await getRiskData(
+
+                latitude,
+
+                longitude
+
+            );
+
+
+        createRiskMarker(
+
+            latitude,
+
+            longitude,
+
+            riskData.riskLevel,
+
+            name
+
+        );
+
+
+        updateRiskPanel(
+
+            name,
+
+            latitude,
+
+            longitude,
+
+            riskData
+
+        );
+
+
+        panel.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "nearest"
+
+        });
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+
+            "Risk data error:",
+
+            error
+
+        );
+
+
+        alert(
+            "Unable to load heat data. Make sure the backend is running."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   GET RISK DATA
+===================================================== */
+
+
+async function getRiskData(
+
+    latitude,
+
+    longitude
+
+) {
+
+
+    const response =
+        await fetch(
+
+            `${API_URL}/api/risk?lat=${latitude}&lon=${longitude}`
+
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Risk API failed"
+        );
+
+    }
+
+
+    return await response.json();
+
+}
+
+
+/* =====================================================
+   CREATE RISK MARKER
+===================================================== */
+
+
+function createRiskMarker(
+
+    latitude,
+
+    longitude,
+
+    riskLevel,
+
+    locationName
+
+) {
+
+
+    const risk =
+        String(riskLevel || "LOW")
+            .toUpperCase();
+
+
+    const color =
+        getRiskColor(risk);
+
+
+    selectedMarker =
+        L.circleMarker(
+
+            [
+
+                latitude,
+
+                longitude
+
+            ],
+
+            {
+
+                radius: 12,
+
+                color: "#ffffff",
+
+                weight: 3,
+
+                fillColor: color,
+
+                fillOpacity: 0.95,
+
+                className:
+                    "heat-risk-marker"
+
+            }
+
+        ).addTo(heatMap);
+
+
+    selectedMarker.bindPopup(
+
+        createPopupContent(
+
+            locationName,
+
+            risk
+
+        )
+
+    );
+
+
+    selectedMarker.on(
+
+        "click",
+
+        () => {
+
+            panel.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "nearest"
+
+            });
+
+        }
+
+    );
+
+
+    selectedMarker.openPopup();
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+
+function createPopupContent(
+
+    locationName,
+
+    riskLevel
+
+) {
+
+
+    return `
+
+        <div style="
+            min-width:190px;
+            font-family:Inter,sans-serif;
+        ">
+
+            <strong style="
+                display:block;
+                font-size:15px;
+                margin-bottom:7px;
+                color:#f0f2f3;
+            ">
+
+                ${locationName}
+
+            </strong>
+
+
+            <span style="
+                display:inline-block;
+                padding:5px 8px;
+                border-radius:6px;
+                background:${getRiskColor(riskLevel)}22;
+                color:${getRiskColor(riskLevel)};
+                font-size:11px;
+                font-weight:700;
+            ">
+
+                ${riskLevel} HEAT RISK
+
+            </span>
+
+
+            <p style="
+                margin-top:9px;
+                margin-bottom:0;
+                color:#9ba4ad;
+                font-size:11px;
+            ">
+
+                Click the marker to view heat conditions.
+
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   RISK COLOR
+===================================================== */
+
+
+function getRiskColor(riskLevel) {
+
+
+    switch (
+
+        String(riskLevel).toUpperCase()
+
+    ) {
+
+
+        case "EXTREME":
+
+            return "#d9534f";
+
+
+        case "HIGH":
+
+            return "#e8794c";
+
+
+        case "MODERATE":
+
+            return "#f2c94c";
+
+
+        case "LOW":
+
+        default:
+
+            return "#56a986";
+
+    }
+
+}
+
+
+/* =====================================================
+   UPDATE RISK PANEL
+===================================================== */
+
+
+async function updateRiskPanel(
+
+    name,
+
+    latitude,
+
+    longitude,
+
+    data
+
+) {
+
+
+    const risk =
+        String(
+
+            data.riskLevel || "LOW"
+
+        ).toUpperCase();
+
+
+    const temperature =
+        Number(data.temperature);
+
+
+    const feelsLike =
+        Number(data.feelsLike);
+
+
+    const humidity =
+        Number(data.humidity);
+
+
+    const windSpeed =
+        Number(data.windSpeed);
+
+
+    const uvIndex =
+        Number(data.uvIndex);
+
+
+    /* Location */
+
+    panelLocation.textContent =
+        name;
+
+
+    /* Risk */
+
+    panelRiskLevel.textContent =
+        `${risk} HEAT RISK`;
+
+
+    panelRiskIcon.textContent =
+        getRiskIcon(risk);
+
+
+    const color =
+        getRiskColor(risk);
+
+
+    panelRiskLevel.style.color =
+        color;
+
+
+    panelRiskIcon.style.color =
+        color;
+
+
+    panelRiskLevel.style.background =
+        `${color}18`;
+
+
+    panelRiskIcon.style.background =
+        `${color}18`;
+
+
+    /* Description */
+
+    panelDescription.textContent =
+        getRiskMessage(risk);
+
+
+    /* Temperature */
+
+    panelTemperature.textContent =
+        formatNumber(temperature) + "°C";
+
+
+    /* Feels like */
+
+    panelFeels.textContent =
+        formatNumber(feelsLike) + "°C";
+
+
+    /* Humidity */
+
+    panelHumidity.textContent =
+        formatNumber(humidity) + "%";
+
+
+    /* Wind */
+
+    panelWind.textContent =
+        formatNumber(windSpeed) + " km/h";
+
+
+    /* UV */
+
+    panelUV.textContent =
+        formatNumber(uvIndex);
+
+
+    /* Heat index */
+
+    panelHeatIndex.textContent =
+        formatNumber(feelsLike) + "°C";
+
+
+    /* Coordinates */
+
+    panelCoordinates.textContent =
+        `${latitude.toFixed(2)}, ${longitude.toFixed(2)}`;
+
+
+    /* Safety */
+
+    panelSafety.textContent =
+        getSafetyMessage(risk);
+
+
+    /* Trend */
+
+    trendSummary.textContent =
+        getTrendMessage(risk);
+
+
+    // =================================================
+    // LOAD REAL HOURLY HEAT TREND
+    // =================================================
+
+    await loadHourlyTrend(
+
+        latitude,
+
+        longitude
+
+    );
+
+
+    /* Show panel */
+
+    panel.style.display = "block";
+
+}
+
+
+/* =====================================================
+   FORMAT NUMBERS
+===================================================== */
+
+
+function formatNumber(value) {
+
+
+    if (
+
+        value === null ||
+
+        value === undefined ||
+
+        Number.isNaN(value)
+
+    ) {
+
+        return "--";
+
+    }
+
+
+    return Number(value).toFixed(1);
+
+}
+
+
+/* =====================================================
+   RISK ICON
+===================================================== */
+
+
+function getRiskIcon(risk) {
+
+
+    switch (risk) {
+
+
+        case "EXTREME":
+
+            return "⚠";
+
+
+        case "HIGH":
+
+            return "!";
+
+
+        case "MODERATE":
+
+            return "⚠";
+
+
+        case "LOW":
+
+        default:
+
+            return "✓";
+
+    }
+
+}
+
+
+/* =====================================================
+   RISK MESSAGE
+===================================================== */
+
+
+function getRiskMessage(risk) {
+
+
+    switch (risk) {
+
+
+        case "EXTREME":
+
+            return "Extreme heat conditions are present. Avoid prolonged outdoor exposure and take immediate precautions.";
+
+
+        case "HIGH":
+
+            return "High heat conditions are present. Stay hydrated and limit prolonged outdoor activity.";
+
+
+        case "MODERATE":
+
+            return "Moderate heat conditions are present. Stay hydrated and take regular breaks.";
+
+
+        case "LOW":
+
+        default:
+
+            return "Heat conditions are currently low. Continue normal activities while staying aware of changing conditions.";
+
+    }
+
+}
+
+
+/* =====================================================
+   SAFETY MESSAGE
+===================================================== */
+
+
+function getSafetyMessage(risk) {
+
+
+    switch (risk) {
+
+
+        case "EXTREME":
+
+            return "Avoid unnecessary outdoor activity. Stay indoors or in a cool place, drink water frequently, and watch for signs of heat illness.";
+
+
+        case "HIGH":
+
+            return "Drink plenty of water, avoid intense outdoor activity during the hottest hours, and take frequent cooling breaks.";
+
+
+        case "MODERATE":
+
+            return "Stay hydrated, wear light clothing, use shade when outdoors, and take regular breaks.";
+
+
+        case "LOW":
+
+        default:
+
+            return "Stay hydrated and remain aware of increasing temperatures, especially during prolonged outdoor activity.";
+
+    }
+
+}
+
+/* =====================================================
+   REAL HOURLY HEAT TREND
+===================================================== */
+
+
+
+async function loadHourlyTrend(latitude, longitude) {
+    try {
+        const response = await fetch(
+            `${API_URL}/api/hourly?lat=${latitude}&lon=${longitude}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Hourly API failed");
+        }
+
+        const data = await response.json();
+        const hourly = data.hourly;
+        const current = data.current;
+
+        if (
+            !hourly ||
+            !hourly.time ||
+            !hourly.apparent_temperature
+        ) {
+            throw new Error("Hourly data is missing");
+        }
+
+        drawHeatTrend(
+    hourly.time,
+    hourly.temperature_2m,
+    current?.time,
+    current?.temperature_2m
+);
+
+    } catch (error) {
+        console.error("Hourly trend error:", error);
+    }
+}
+
+
+
+/* =====================================================
+   DRAW HEAT TREND
+===================================================== */
+
+
+function drawHeatTrend(
+    times,
+    temperatures,
+    currentTime = null,
+    currentTemperature = null
+) { 
+
+
+    const chart =
+        document.querySelector(".trend-chart");
+
+
+    if (!chart) {
+
+        console.warn(
+            "Trend chart container not found."
+        );
+
+        return;
+
+    }
+
+
+    
+    const validData = [];
+
+    // Keep only hourly readings up to the selected
+    // location's current local time.
+    for (let i = 0; i < times.length; i++) {
+        const time = times[i];
+
+        if (currentTime && time > currentTime) {
+            continue;
+        }
+
+        const rawTemperature = temperatures[i];
+
+        if (
+            rawTemperature === null ||
+            rawTemperature === undefined ||
+            rawTemperature === ""
+        ) {
+            continue;
+        }
+
+        const temperature = Number(rawTemperature);
+
+        if (Number.isFinite(temperature)) {
+            validData.push({
+                time,
+                temperature
+            });
+        }
+    }
+
+    // Append the latest current reading, so the graph
+    // can end at the current time rather than at the
+    // last completed hour.
+    if (
+        currentTime &&
+        currentTemperature !== null &&
+        currentTemperature !== undefined &&
+        Number.isFinite(Number(currentTemperature))
+    ) {
+        const latest = {
+            time: currentTime,
+            temperature: Number(currentTemperature)
+        };
+
+        const lastPoint = validData[validData.length - 1];
+
+        if (!lastPoint || currentTime > lastPoint.time) {
+            validData.push(latest);
+        } else if (currentTime === lastPoint.time) {
+            lastPoint.temperature = latest.temperature;
+        }
+    }
+
+    if (validData.length === 0) {
+        return;
+    }
+
+
+
+    // -------------------------------------------------
+    // CHART SIZE
+    // -------------------------------------------------
+
+    const width = 900;
+
+    const height = 180;
+
+
+    const paddingLeft = 20;
+
+    const paddingRight = 20;
+
+    const paddingTop = 20;
+
+    const paddingBottom = 35;
+
+
+    // -------------------------------------------------
+    // TEMPERATURE RANGE
+    // -------------------------------------------------
+
+    const values =
+        validData.map(
+
+            item =>
+                item.temperature
+
+        );
+
+
+    const minTemp =
+        Math.floor(
+
+            Math.min(...values) - 1
+
+        );
+
+
+    const maxTemp =
+        Math.ceil(
+
+            Math.max(...values) + 1
+
+        );
+
+
+    const range =
+        Math.max(
+
+            maxTemp - minTemp,
+
+            1
+
+        );
+
+
+    // -------------------------------------------------
+    // CREATE POINTS
+    // -------------------------------------------------
+
+    const points =
+        validData.map(
+
+            (item, index) => {
+
+
+                const x =
+
+                    paddingLeft +
+
+                    (
+
+                        index /
+
+                        Math.max(
+
+                            validData.length - 1,
+
+                            1
+
+                        )
+
+                    ) *
+
+                    (
+
+                        width -
+
+                        paddingLeft -
+
+                        paddingRight
+
+                    );
+
+
+                const y =
+
+                    paddingTop +
+
+                    (
+
+                        (
+
+                            maxTemp -
+
+                            item.temperature
+
+                        ) /
+
+                        range
+
+                    ) *
+
+                    (
+
+                        height -
+
+                        paddingTop -
+
+                        paddingBottom
+
+                    );
+
+
+                return {
+
+                    x,
+
+                    y,
+
+                    temperature:
+                        item.temperature,
+
+                    time:
+                        item.time
+
+                };
 
             }
 
         );
 
+
+    // -------------------------------------------------
+    // SVG PATH
+    // -------------------------------------------------
+
+    const pathData =
+
+        points
+
+            .map(
+
+                (point, index) =>
+
+                    `${
+
+                        index === 0
+
+                            ? "M"
+
+                            : "L"
+
+                    } ${point.x} ${point.y}`
+
+            )
+
+            .join(" ");
+
+
+    // -------------------------------------------------
+    // TIME LABELS
+    // -------------------------------------------------
+
+    const firstTime =
+
+        new Date(
+
+            validData[0].time
+
+        );
+
+
+    const middleTime =
+
+        new Date(
+
+            validData[
+
+                Math.floor(
+
+                    validData.length / 2
+
+                )
+
+            ].time
+
+        );
+
+
+    const lastTime =
+
+        new Date(
+
+            validData[
+
+                validData.length - 1
+
+            ].time
+
+        );
+
+
+    const formatTime = (date) => {
+
+
+        return date.toLocaleTimeString(
+
+            [],
+
+            {
+
+                hour: "numeric",
+
+                minute: "2-digit"
+
+            }
+
+        );
+
+    };
+
+
+    // -------------------------------------------------
+    // BUILD CHART
+    // -------------------------------------------------
+
+    chart.innerHTML = `
+
+        <svg
+
+            viewBox="0 0 ${width} ${height}"
+
+            width="100%"
+
+            height="100%"
+
+            preserveAspectRatio="none"
+
+        >
+
+
+            <!-- GRID -->
+
+
+            <line
+
+                x1="${paddingLeft}"
+
+                y1="50"
+
+                x2="${width - paddingRight}"
+
+                y2="50"
+
+                stroke="rgba(255,255,255,0.06)"
+
+                stroke-width="1"
+
+            />
+
+
+            <line
+
+                x1="${paddingLeft}"
+
+                y1="90"
+
+                x2="${width - paddingRight}"
+
+                y2="90"
+
+                stroke="rgba(255,255,255,0.06)"
+
+                stroke-width="1"
+
+            />
+
+
+            <line
+
+                x1="${paddingLeft}"
+
+                y1="130"
+
+                x2="${width - paddingRight}"
+
+                y2="130"
+
+                stroke="rgba(255,255,255,0.06)"
+
+                stroke-width="1"
+
+            />
+
+
+            <!-- HEAT LINE -->
+
+
+            <path
+
+                d="${pathData}"
+
+                fill="none"
+
+                stroke="#ff7043"
+
+                stroke-width="3"
+
+                stroke-linecap="round"
+
+                stroke-linejoin="round"
+
+            />
+
+
+            <!-- DATA POINTS -->
+
+
+            ${points.map(point => `
+
+                <circle
+
+                    cx="${point.x}"
+
+                    cy="${point.y}"
+
+                    r="3.5"
+
+                    fill="#ff7043"
+
+                >
+
+                    <title>
+
+                        ${formatTime(
+
+                            new Date(point.time)
+
+                        )}
+
+                        -
+
+                        ${point.temperature.toFixed(1)}°C
+
+                    </title>
+
+                </circle>
+
+            `).join("")}
+
+
+            <!-- TIME LABELS -->
+
+
+            <text
+
+                x="${paddingLeft}"
+
+                y="${height - 8}"
+
+                fill="#7f8b96"
+
+                font-size="11"
+
+            >
+
+                ${formatTime(firstTime)}
+
+            </text>
+
+
+            <text
+
+                x="${width / 2}"
+
+                y="${height - 8}"
+
+                fill="#7f8b96"
+
+                font-size="11"
+
+                text-anchor="middle"
+
+            >
+
+                ${formatTime(middleTime)}
+
+            </text>
+
+
+            <text
+
+                x="${width - paddingRight}"
+
+                y="${height - 8}"
+
+                fill="#7f8b96"
+
+                font-size="11"
+
+                text-anchor="end"
+
+            >
+
+                ${formatTime(lastTime)}
+
+            </text>
+
+
+        </svg>
+
+    `;
+
+}
+
+
+/* =====================================================
+   TREND MESSAGE
+===================================================== */
+
+
+function getTrendMessage(risk) {
+
+
+    switch (risk) {
+
+
+        case "EXTREME":
+
+            return "Very high heat";
+
+
+        case "HIGH":
+
+            return "High heat";
+
+
+        case "MODERATE":
+
+            return "Moderate heat";
+
+
+        case "LOW":
+
+        default:
+
+            return "Lower heat";
+
     }
-);
+
+}
 
 
-// =====================================================
-// SAFETY BUTTON
-// =====================================================
+/* =====================================================
+   CURRENT LOCATION
+===================================================== */
 
-panelSafetyButton.addEventListener(
+
+async function useCurrentLocation() {
+
+
+    if (!navigator.geolocation) {
+
+
+        alert(
+
+            "Geolocation is not supported by this browser."
+
+        );
+
+
+        return;
+
+    }
+
+
+    locationText.textContent =
+        "Finding location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+
+        async (position) => {
+
+
+            const latitude =
+                position.coords.latitude;
+
+
+            const longitude =
+                position.coords.longitude;
+
+
+            try {
+
+
+                let locationName =
+                    "Current Location";
+
+
+                const response =
+                    await fetch(
+
+                        `${API_URL}/api/location?lat=${latitude}&lon=${longitude}`
+
+                    );
+
+
+                if (response.ok) {
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (data.name) {
+
+
+                        locationName =
+                            data.name;
+
+                    }
+
+                }
+
+
+                locationText.textContent =
+                    locationName;
+
+
+                await selectLocation({
+
+                    name:
+                        locationName,
+
+                    latitude,
+
+                    longitude
+
+                });
+
+
+            }
+
+            catch (error) {
+
+
+                console.error(
+
+                    "Current location error:",
+
+                    error
+
+                );
+
+
+                locationText.textContent =
+                    "Your Location";
+
+            }
+
+        },
+
+
+        (error) => {
+
+
+            console.error(
+
+                "Geolocation error:",
+
+                error
+
+            );
+
+
+            locationText.textContent =
+                "Your Location";
+
+
+            alert(
+
+                "Unable to determine your current location. You can search for your city instead."
+
+            );
+
+        },
+
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 10000,
+
+            maximumAge: 300000
+
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   LOAD SAVED LOCATION
+===================================================== */
+
+
+async function loadSavedLocation() {
+
+
+    const saved =
+        localStorage.getItem(
+
+            "heatShieldSelectedLocation"
+
+        );
+
+
+    if (!saved) {
+
+        return;
+
+    }
+
+
+    try {
+
+
+        const location =
+            JSON.parse(saved);
+
+
+        if (
+
+            !location ||
+
+            !location.latitude ||
+
+            !location.longitude
+
+        ) {
+
+            return;
+
+        }
+
+
+        searchInput.value =
+            location.name || "";
+
+
+        await selectLocation(
+            location
+        );
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+
+            "Saved location error:",
+
+            error
+
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   PANEL CLOSE
+===================================================== */
+
+
+function closePanel() {
+
+
+    panel.style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   DETAILED RISK PAGE
+===================================================== */
+
+
+function openDetailedRisk() {
+
+
+    const saved =
+        localStorage.getItem(
+
+            "heatShieldSelectedLocation"
+
+        );
+
+
+    if (!saved) {
+
+
+        alert(
+
+            "Please select a location first."
+
+        );
+
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "risk.html";
+
+}
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+
+function setupMobileMenu() {
+
+
+    if (!menuButton || !navLinks) {
+
+        return;
+
+    }
+
+
+    menuButton.addEventListener(
+
+        "click",
+
+        () => {
+
+
+            navLinks.classList.toggle(
+
+                "open"
+
+            );
+
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   EVENT LISTENERS
+===================================================== */
+
+
+searchButton.addEventListener(
+
     "click",
-    () => {
 
-        window.location.href =
-            "safety.html";
+    searchLocation
+
+);
+
+
+searchInput.addEventListener(
+
+    "keydown",
+
+    (event) => {
+
+
+        if (
+
+            event.key === "Enter"
+
+        ) {
+
+
+            searchLocation();
+
+        }
 
     }
+
 );
 
 
-// =====================================================
-// INITIALIZE
-// =====================================================
+locationButton.addEventListener(
 
-updateMapZoom();
+    "click",
 
-showZone(
-    "Central City"
+    useCurrentLocation
+
 );
 
 
-console.log(
-    "HeatShield Heat Map loaded successfully."
+panelClose.addEventListener(
+
+    "click",
+
+    closePanel
+
 );
+
+
+panelRiskButton.addEventListener(
+
+    "click",
+
+    openDetailedRisk
+
+);
+
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
+
+
+initializeMap();
+
+
+setupMobileMenu();
+
+
+loadSavedLocation();
+
+
+/* Refresh the graph periodically so its endpoint
+   follows the current time. */
+
+setInterval(() => {
+    try {
+        const saved = localStorage.getItem(
+            "heatShieldSelectedLocation"
+        );
+
+        if (!saved) {
+            return;
+        }
+
+        const location = JSON.parse(saved);
+
+        const latitude = Number(location.latitude);
+        const longitude = Number(location.longitude);
+
+        if (
+            Number.isFinite(latitude) &&
+            Number.isFinite(longitude)
+        ) {
+            loadHourlyTrend(latitude, longitude);
+        }
+
+    } catch (error) {
+        console.error(
+            "Heat trend refresh error:",
+            error
+        );
+    }
+}, 5 * 60 * 1000);

@@ -1,369 +1,287 @@
-// =========================
-// HEAT DATA
-// =========================
 
-const heatData = {
+// ========================================
+// HEATSHIELD - HEAT RISK REPORT
+// Reads the selected Heat Map location
+// ========================================
 
-    location: "Your Area",
+document.addEventListener("DOMContentLoaded", () => {
+    const API_URL = "http://localhost:5000";
 
-    temperature: 38,
+    const emptyState = document.getElementById("emptyState");
+    const riskReport = document.getElementById("riskReport");
+    const loadError = document.getElementById("loadError");
+    const updatedTime = document.getElementById("updatedTime");
+    const dataSource = document.getElementById("dataSource");
 
-    humidity: 48,
+    // Mobile navigation
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
 
-    uv: 8,
+    if (menuButton && navLinks) {
+        menuButton.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("open");
+            menuButton.setAttribute("aria-expanded", String(isOpen));
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation" : "Open navigation"
+            );
+            menuButton.textContent = isOpen ? "✕" : "☰";
+        });
 
-    wind: 12,
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
+                menuButton.setAttribute("aria-expanded", "false");
+                menuButton.setAttribute("aria-label", "Open navigation");
+                menuButton.textContent = "☰";
+            });
+        });
+    }
 
-    feelsLike: 42,
+    // Get the location selected on Heat Map.
+    // Fall back to the older location key if it exists.
+    function getSavedLocation() {
+        const possibleKeys = [
+            "heatShieldSelectedLocation",
+            "heatShieldLocation"
+        ];
 
-    heatIndex: 42,
+        for (const key of possibleKeys) {
+            try {
+                const rawValue = localStorage.getItem(key);
 
-    risk: "HIGH HEAT RISK",
+                if (!rawValue) continue;
 
-    message:
-        "Dangerous heat conditions are present. Extra precautions are recommended."
+                const location = JSON.parse(rawValue);
 
-};
-
-
-// =========================
-// LOAD HEAT DATA
-// =========================
-
-function loadHeatData() {
-
-    document.getElementById(
-        "locationName"
-    ).textContent =
-        heatData.location;
-
-
-    document.getElementById(
-        "temperature"
-    ).textContent =
-        heatData.temperature;
-
-
-    document.getElementById(
-        "humidity"
-    ).textContent =
-        heatData.humidity;
-
-
-    document.getElementById(
-        "uvIndex"
-    ).textContent =
-        heatData.uv;
-
-
-    document.getElementById(
-        "wind"
-    ).textContent =
-        heatData.wind;
-
-
-    document.getElementById(
-        "feelsLike"
-    ).textContent =
-        `${heatData.feelsLike}°C`;
-
-
-    document.getElementById(
-        "heatIndex"
-    ).textContent =
-        heatData.heatIndex;
-
-
-    document.getElementById(
-        "riskLevel"
-    ).textContent =
-        heatData.risk;
-
-
-    document.getElementById(
-        "riskMessage"
-    ).textContent =
-        heatData.message;
-
-}
-
-
-// =========================
-// LOCATION
-// =========================
-
-const locationButton =
-    document.getElementById(
-        "locationButton"
-    );
-
-const locationText =
-    document.getElementById(
-        "locationText"
-    );
-
-
-locationButton.addEventListener(
-    "click",
-    () => {
-
-        if (
-            !navigator.geolocation
-        ) {
-
-            locationText.textContent =
-                "Unavailable";
-
-            return;
-
-        }
-
-
-        locationText.textContent =
-            "Detecting...";
-
-
-        navigator.geolocation.getCurrentPosition(
-
-            position => {
-
-                const locationData = {
-
-                    latitude:
-                        position.coords.latitude,
-
-                    longitude:
-                        position.coords.longitude
-
-                };
-
-
-                localStorage.setItem(
-                    "heatShieldLocation",
-                    JSON.stringify(
-                        locationData
-                    )
+                const latitude = Number(
+                    location.latitude ?? location.lat
                 );
 
+                const longitude = Number(
+                    location.longitude ?? location.lon ?? location.lng
+                );
 
-                locationText.textContent =
-                    "Location detected";
+                if (
+                    Number.isFinite(latitude) &&
+                    Number.isFinite(longitude) &&
+                    latitude >= -90 &&
+                    latitude <= 90 &&
+                    longitude >= -180 &&
+                    longitude <= 180
+                ) {
+                    return {
+                        latitude,
+                        longitude,
+                        name:
+                            location.name ||
+                            location.locationName ||
+                            location.city ||
+                            "Selected location"
+                    };
+                }
+            } catch (error) {
+                console.warn("Could not read saved location:", error);
+            }
+        }
 
+        return null;
+    }
 
-                document.getElementById(
-                    "locationName"
-                ).textContent =
-                    "Your Location";
+    function showError(message) {
+        emptyState.hidden = true;
+        riskReport.hidden = true;
+        loadError.hidden = false;
+        loadError.textContent = message;
+    }
 
+    function showNoLocation() {
+        emptyState.hidden = false;
+        riskReport.hidden = true;
+        loadError.hidden = true;
+        updatedTime.textContent = "No location selected";
+        dataSource.textContent = "Choose an area on Heat Map";
+    }
+
+    function displayValue(value, digits = 1) {
+        const number = Number(value);
+
+        if (value === null || value === undefined || value === "" ||
+            !Number.isFinite(number)) {
+            return "--";
+        }
+
+        return number.toFixed(digits).replace(/\.0$/, "");
+    }
+
+    function getRiskLevel(data) {
+        // Prefer the risk level calculated by the backend.
+        if (data.riskLevel) {
+            return String(data.riskLevel).toUpperCase();
+        }
+
+        // Fallback thresholds match the existing prototype.
+        const feelsLike = Number(data.feelsLike);
+
+        if (!Number.isFinite(feelsLike)) return "UNKNOWN";
+        if (feelsLike >= 45) return "EXTREME";
+        if (feelsLike >= 40) return "HIGH";
+        if (feelsLike >= 35) return "MODERATE";
+
+        return "LOW";
+    }
+
+    function getRiskMessage(level, feelsLike) {
+        switch (level) {
+            case "EXTREME":
+                return `The reported feels-like temperature is ${feelsLike}°C. Avoid strenuous outdoor activity and move to a cooler place when possible.`;
+            case "HIGH":
+                return `The reported feels-like temperature is ${feelsLike}°C. Limit prolonged outdoor exposure, take breaks and drink water regularly.`;
+            case "MODERATE":
+                return `The reported feels-like temperature is ${feelsLike}°C. Stay hydrated, seek shade and pay attention to signs of overheating.`;
+            case "LOW":
+                return `The reported feels-like temperature is ${feelsLike}°C. Continue sensible heat precautions, especially during prolonged outdoor activity.`;
+            default:
+                return "The risk level could not be determined from the available temperature data. Please check official local weather guidance.";
+        }
+    }
+
+    function updateRiskDisplay(level) {
+        const badge = document.getElementById("riskBadge");
+        const levelText = document.getElementById("riskLevel");
+        const marker = document.getElementById("scaleMarker");
+
+        const styles = {
+            LOW: {
+                color: "#56c69a",
+                background: "rgba(86, 198, 154, 0.10)",
+                border: "rgba(86, 198, 154, 0.35)",
+                position: "12.5%"
             },
-
-
-            () => {
-
-                locationText.textContent =
-                    "Permission denied";
-
+            MODERATE: {
+                color: "#eac65e",
+                background: "rgba(234, 198, 94, 0.10)",
+                border: "rgba(234, 198, 94, 0.35)",
+                position: "37.5%"
+            },
+            HIGH: {
+                color: "#f29a48",
+                background: "rgba(242, 154, 72, 0.10)",
+                border: "rgba(242, 154, 72, 0.35)",
+                position: "62.5%"
+            },
+            EXTREME: {
+                color: "#f16f58",
+                background: "rgba(241, 111, 88, 0.10)",
+                border: "rgba(241, 111, 88, 0.35)",
+                position: "87.5%"
             }
+        };
 
-        );
+        const style = styles[level] || {
+            color: "#aeb8c2",
+            background: "rgba(174, 184, 194, 0.08)",
+            border: "rgba(174, 184, 194, 0.3)",
+            position: "50%"
+        };
 
+        levelText.textContent = level;
+        badge.style.color = style.color;
+        badge.style.background = style.background;
+        badge.style.borderColor = style.border;
+        marker.style.left = style.position;
+        marker.style.background = style.color;
+        marker.style.boxShadow = `0 0 0 4px ${style.background}`;
     }
-);
 
+    function renderReport(data, savedLocation) {
+        const locationName =
+            data.locationName ||
+            (typeof data.location === "string" ? data.location : null) ||
+            data.name ||
+            savedLocation.name ||
+            "Selected location";
 
-// =========================
-// MOBILE MENU
-// =========================
+        const temperature = data.temperature;
+        const humidity = data.humidity;
+        const uvIndex = data.uvIndex;
+        const windSpeed = data.windSpeed ?? data.wind_speed_10m;
+        const feelsLike = data.feelsLike;
 
-const menuButton =
-    document.getElementById(
-        "menuButton"
-    );
+        document.getElementById("locationName").textContent = locationName;
+        document.getElementById("temperature").textContent =
+            displayValue(temperature);
+        document.getElementById("humidity").textContent =
+            displayValue(humidity);
+        document.getElementById("uvIndex").textContent =
+            displayValue(uvIndex);
+        document.getElementById("wind").textContent =
+            displayValue(windSpeed);
+        document.getElementById("feelsLike").textContent =
+            displayValue(feelsLike);
 
-const navLinks =
-    document.getElementById(
-        "navLinks"
-    );
+        const level = getRiskLevel(data);
 
+        updateRiskDisplay(level);
 
-menuButton.addEventListener(
-    "click",
-    () => {
+        document.getElementById("riskMessage").textContent =
+            Number.isFinite(Number(feelsLike))
+                ? getRiskMessage(level, displayValue(feelsLike))
+                : "The backend did not return a valid feels-like temperature. Please try again.";
 
-        navLinks.classList.toggle(
-            "open"
-        );
+        updatedTime.textContent = new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
 
+        dataSource.textContent = "Data returned by HeatShield backend";
+
+        emptyState.hidden = true;
+        loadError.hidden = true;
+        riskReport.hidden = false;
     }
-);
 
+    async function loadRiskReport() {
+        const savedLocation = getSavedLocation();
 
-// =========================
-// SAFETY MODAL
-// =========================
-
-const modal =
-    document.getElementById(
-        "infoModal"
-    );
-
-const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
-const modalText =
-    document.getElementById(
-        "modalText"
-    );
-
-
-const learnButtons =
-    document.querySelectorAll(
-        ".learn-button"
-    );
-
-
-learnButtons.forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                modalTitle.textContent =
-                    button.dataset.title;
-
-
-                modalText.textContent =
-                    button.dataset.text;
-
-
-                modal.classList.add(
-                    "show"
-                );
-
-            }
-        );
-
-    }
-);
-
-
-// =========================
-// CLOSE MODAL
-// =========================
-
-function closeModal() {
-
-    modal.classList.remove(
-        "show"
-    );
-
-}
-
-
-document.getElementById(
-    "modalClose"
-).addEventListener(
-    "click",
-    closeModal
-);
-
-
-document.getElementById(
-    "modalDone"
-).addEventListener(
-    "click",
-    closeModal
-);
-
-
-modal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target === modal
-        ) {
-
-            closeModal();
-
+        if (!savedLocation) {
+            showNoLocation();
+            return;
         }
 
-    }
-);
+        emptyState.hidden = true;
+        riskReport.hidden = true;
+        loadError.hidden = false;
+        loadError.textContent = "Loading the latest heat risk data…";
 
+        const url = new URL(`${API_URL}/api/risk`);
+        url.searchParams.set("lat", savedLocation.latitude);
+        url.searchParams.set("lon", savedLocation.longitude);
 
-// =========================
-// ESC KEY
-// =========================
+        try {
+            const response = await fetch(url.toString());
 
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-// =========================
-// EMERGENCY GUIDANCE
-// =========================
-
-document.getElementById(
-    "emergencyButton"
-).addEventListener(
-    "click",
-    () => {
-
-        window.location.href =
-            "emergency.html";
-
-    }
-);
-
-
-// =========================
-// UPDATE TIME
-// =========================
-
-function updateTime() {
-
-    const now =
-        new Date();
-
-
-    const time =
-        now.toLocaleTimeString(
-            [],
-            {
-                hour: "2-digit",
-                minute: "2-digit"
+            if (!response.ok) {
+                throw new Error(`Server returned HTTP ${response.status}`);
             }
-        );
 
+            const data = await response.json();
 
-    document.getElementById(
-        "updatedTime"
-    ).textContent =
-        `Updated ${time}`;
+            if (data.error) {
+                throw new Error(data.error);
+            }
 
-}
+            renderReport(data, savedLocation);
+        } catch (error) {
+            console.error("Heat risk loading failed:", error);
 
+            showError(
+                "Could not load heat risk data. Check that your HeatShield " +
+                "backend is running on port 5000, then refresh this page. " +
+                "If it still fails, check the backend terminal for errors."
+            );
+        }
+    }
 
-// =========================
-// INITIALIZE
-// =========================
-
-loadHeatData();
-
-updateTime();
+    loadRiskReport();
+});

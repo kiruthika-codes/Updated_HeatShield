@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,771 +11,635 @@
 
     <title>HeatShield | Heat Map</title>
 
+    <!-- Google Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
 
+    <!-- Heat Map CSS -->
     <link
         rel="stylesheet"
         href="css/heat-map.css"
     >
 
-</head>
+    <link rel="stylesheet" href="css/risk.css">
+<link rel="stylesheet" href="css/shared-ui.css">
 
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+</head>
 
 <body>
 
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
+    <header class="navbar">
 
-<header class="navbar">
+        <a href="index.html" class="logo">
 
-    <a
-        href="index.html"
-        class="logo"
-    >
+            <div class="logo-shield">
+                ☀
+            </div>
 
-        <div class="logo-shield">
-            ☀
-        </div>
+            <div class="logo-text">
 
-        <div class="logo-text">
+                <strong>
+                    Heat<span>Shield</span>
+                </strong>
 
-            <strong>
-                Heat<span>Shield</span>
-            </strong>
+                <small>
+                    STAY AWARE. STAY SAFE.
+                </small>
 
-            <small>
-                STAY AWARE. STAY SAFE.
-            </small>
+            </div>
 
-        </div>
+        </a>
 
+
+        <nav class="nav-links" id="navLinks">
+
+    <a href="index.html">
+        Home
     </a>
 
+    <a href="heat-map.html" class="active">
+        Heat Map
+    </a>
 
-    <nav
-        class="nav-links"
-        id="navLinks"
-    >
+    <a href="risk.html">
+        Heat Risk
+    </a>
 
-        <a href="index.html">
-            Home
-        </a>
+    <a href="alerts.html">
+        Alerts
+    </a>
 
-        <a href="risk.html">
-            Heat Risk
-        </a>
+    <a href="safety.html">
+        Safety
+    </a>
 
-        <a href="alerts.html">
-            Alerts
-        </a>
+    <a href="about.html">
+        About
+    </a>
 
-        <a
-            href="heat-map.html"
-            class="active"
-        >
-            Heat Map
-        </a>
-
-        <a href="safety.html">
-            Safety
-        </a>
-
-        <a href="index.html#about">
-            About
-        </a>
-
-    </nav>
+</nav>
 
 
-    <div class="nav-actions">
+        <div class="nav-actions">
 
-        <button
-            class="location-button"
-            id="locationButton"
-            type="button"
-        >
+            <button
+                class="location-button"
+                id="locationButton"
+                type="button"
+            >
 
-            <span>⌖</span>
+                <span>⌖</span>
 
-            <span id="locationText">
-                Your Location
-            </span>
+                <span id="locationText">
+                    Your Location
+                </span>
 
-        </button>
-
-
-        <button
-            class="menu-button"
-            id="menuButton"
-            type="button"
-        >
-            ☰
-        </button>
-
-    </div>
-
-</header>
+            </button>
 
 
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main>
-
-
-<!-- =====================================================
-     INTRO
-===================================================== -->
-
-<section class="map-intro">
-
-    <div>
-
-        <div class="eyebrow">
-
-            <span class="pulse-dot"></span>
-
-            LIVE HEAT MAP
+            <button
+                class="menu-button"
+                id="menuButton"
+                type="button"
+            >
+                ☰
+            </button>
 
         </div>
 
+    </header>
 
-        <h1>
 
-            See where heat
-            <span>is rising.</span>
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
-        </h1>
+    <main>
 
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
 
-        <p>
+        <section class="map-header">
 
-            Explore heat conditions across different
-            areas and identify locations where extreme
-            heat may become dangerous.
+            <div class="header-text">
 
-        </p>
+                <div class="eyebrow">
 
-    </div>
+                    <span class="pulse-dot"></span>
 
+                    LIVE HEAT MAP
 
-    <div class="map-status">
+                </div>
 
-        <span class="status-dot"></span>
 
-        <div>
+                <h1>
+                    Explore
+                    <span>heat conditions.</span>
+                </h1>
 
-            <strong>
-                Monitoring active
-            </strong>
 
-            <small>
-                Heat conditions are being tracked
-            </small>
+                <p>
+                    Search any location around the world and
+                    explore its current heat conditions.
+                    Select a location to view detailed heat risk.
+                </p>
 
-        </div>
+            </div>
 
-    </div>
+        </section>
 
-</section>
 
+        <!-- =================================================
+             SEARCH BAR
+        ================================================== -->
 
+        <section class="map-toolbar">
 
-<!-- =====================================================
-     TOOLBAR
-===================================================== -->
+            <div class="search-box">
 
-<section class="map-toolbar">
+                <span>⌕</span>
 
+                <input
+                    type="text"
+                    id="locationSearch"
+                    placeholder="Search a city or location..."
+                    autocomplete="off"
+                >
 
-    <div class="search-box">
+                <button
+                    id="searchButton"
+                    type="button"
+                >
+                    Search
+                </button>
 
-        <span>
-            ⌕
-        </span>
+            </div>
 
-        <input
-            type="text"
-            id="locationSearch"
-            placeholder="Search an area..."
-        >
 
-        <button
-            id="searchButton"
-            type="button"
-        >
-            Search
-        </button>
+            <div class="map-status">
 
-    </div>
-
-
-    <div class="map-filters">
-
-        <button
-            class="map-filter active"
-            data-risk="all"
-            type="button"
-        >
-            All areas
-        </button>
-
-        <button
-            class="map-filter"
-            data-risk="low"
-            type="button"
-        >
-            Low
-        </button>
-
-        <button
-            class="map-filter"
-            data-risk="moderate"
-            type="button"
-        >
-            Moderate
-        </button>
-
-        <button
-            class="map-filter"
-            data-risk="high"
-            type="button"
-        >
-            High
-        </button>
-
-        <button
-            class="map-filter"
-            data-risk="extreme"
-            type="button"
-        >
-            Extreme
-        </button>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     MAP + PANEL
-===================================================== -->
-
-<section class="map-layout">
-
-
-    <!-- ================= MAP ================= -->
-
-    <div class="map-container" id="mapContainer">
-
-
-        <!-- Everything inside this wrapper zooms together -->
-
-        <div
-            class="map-world"
-            id="mapWorld"
-        >
-
-
-            <!-- ================= LAND ================= -->
-
-            <div class="land-shape land-one"></div>
-
-            <div class="land-shape land-two"></div>
-
-            <div class="land-shape land-three"></div>
-
-            <div class="land-shape land-four"></div>
-
-
-            <!-- ================= WATER ================= -->
-
-            <div class="water-area water-one"></div>
-
-            <div class="water-area water-two"></div>
-
-
-            <!-- ================= ROADS ================= -->
-
-            <div class="road road-one"></div>
-
-            <div class="road road-two"></div>
-
-            <div class="road road-three"></div>
-
-            <div class="road road-four"></div>
-
-            <div class="road road-five"></div>
-
-            <div class="road road-six"></div>
-
-            <div class="road road-seven"></div>
-
-            <div class="road road-eight"></div>
-
-
-            <!-- ================= SECONDARY ROADS ================= -->
-
-            <div class="minor-road minor-one"></div>
-
-            <div class="minor-road minor-two"></div>
-
-            <div class="minor-road minor-three"></div>
-
-            <div class="minor-road minor-four"></div>
-
-            <div class="minor-road minor-five"></div>
-
-
-            <!-- ================= MAP LABELS ================= -->
-
-            <span class="place-label north-label">
-                NORTH
-            </span>
-
-            <span class="place-label west-label">
-                WEST
-            </span>
-
-            <span class="place-label east-label">
-                EAST
-            </span>
-
-            <span class="place-label south-label">
-                SOUTH
-            </span>
-
-
-            <!-- ================= CITY LABELS ================= -->
-
-            <span class="city-label city-one">
-                Greenfield
-            </span>
-
-            <span class="city-label city-two">
-                Lakeside
-            </span>
-
-            <span class="city-label city-three">
-                Central City
-            </span>
-
-            <span class="city-label city-four">
-                East District
-            </span>
-
-            <span class="city-label city-five">
-                South Market
-            </span>
-
-            <span class="city-label city-six">
-                West Park
-            </span>
-
-            <span class="city-label city-seven">
-                Industrial Area
-            </span>
-
-
-            <!-- ================= HEAT ZONES ================= -->
-
-            <button
-                class="heat-zone low"
-                data-location="Greenfield"
-                data-risk="low"
-                style="left: 25%; top: 28%;"
-                type="button"
-            >
-                <span></span>
-            </button>
-
-
-            <button
-                class="heat-zone moderate"
-                data-location="Lakeside"
-                data-risk="moderate"
-                style="left: 42%; top: 34%;"
-                type="button"
-            >
-                <span></span>
-            </button>
-
-
-            <button
-                class="heat-zone high"
-                data-location="Central City"
-                data-risk="high"
-                style="left: 55%; top: 49%;"
-                type="button"
-            >
-                <span></span>
-            </button>
-
-
-            <button
-                class="heat-zone extreme"
-                data-location="East District"
-                data-risk="extreme"
-                style="left: 73%; top: 34%;"
-                type="button"
-            >
-                <span></span>
-            </button>
-
-
-            <button
-                class="heat-zone high"
-                data-location="South Market"
-                data-risk="high"
-                style="left: 48%; top: 70%;"
-                type="button"
-            >
-                <span></span>
-            </button>
-
-
-            <button
-                class="heat-zone moderate"
-                data-location="West Park"
-                data-risk="moderate"
-                style="left: 23%; top: 59%;"
-                type="button"
-            >
-                <span></span>
-            </button>
-
-
-            <button
-                class="heat-zone extreme"
-                data-location="Industrial Area"
-                data-risk="extreme"
-                style="left: 79%; top: 68%;"
-                type="button"
-            >
-                <span></span>
-            </button>
-
-
-            <!-- ================= CURRENT LOCATION ================= -->
-
-            <div
-                class="current-location"
-                id="currentLocation"
-            >
-
-                <span></span>
+                <span class="status-dot"></span>
 
                 <div>
-                    You are here
+
+                    <strong>
+                        Live weather data
+                    </strong>
+
+                    <small>
+                        Powered by Open-Meteo
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             MAP
+        ================================================== -->
+
+        <section class="map-section">
+
+            <div class="map-container" id="mapContainer">
+
+                <!-- Real Leaflet World Map -->
+                <div
+                    class="map-world"
+                    id="mapWorld"
+                ></div>
+
+
+                <!-- Map Controls -->
+
+                <div class="map-controls">
+
+                    <button
+                        id="zoomIn"
+                        type="button"
+                        title="Zoom in"
+                    >
+                        +
+                    </button>
+
+                    <button
+                        id="zoomOut"
+                        type="button"
+                        title="Zoom out"
+                    >
+                        −
+                    </button>
+
+                    <button
+                        id="resetMap"
+                        type="button"
+                        title="Reset world map"
+                    >
+                        ⟳
+                    </button>
+
+                </div>
+
+
+                <!-- Map Legend -->
+
+                <div class="map-legend">
+
+                    <strong>
+                        HEAT RISK
+                    </strong>
+
+                    <div>
+
+                        <span>
+                            <i class="low-dot"></i>
+                            Low
+                        </span>
+
+                        <span>
+                            <i class="moderate-dot"></i>
+                            Moderate
+                        </span>
+
+                        <span>
+                            <i class="high-dot"></i>
+                            High
+                        </span>
+
+                        <span>
+                            <i class="extreme-dot"></i>
+                            Extreme
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOCATION / RISK PANEL
+        ================================================== -->
+
+        <aside
+            class="zone-panel"
+            id="zonePanel"
+        >
+
+            <button
+                class="panel-close"
+                id="panelClose"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <span class="panel-label">
+                SELECTED LOCATION
+            </span>
+
+
+            <div
+                class="panel-risk-icon"
+                id="panelRiskIcon"
+            >
+                !
+            </div>
+
+
+            <span
+                class="panel-risk-level"
+                id="panelRiskLevel"
+            >
+                SELECT LOCATION
+            </span>
+
+
+            <h2 id="panelLocation">
+                Search for a location
+            </h2>
+
+
+            <p id="panelDescription">
+                Search for a city and select the map marker
+                to view its current heat conditions.
+            </p>
+
+
+            <!-- Current Temperature -->
+
+            <div class="panel-temperature">
+
+                <strong id="panelTemperature">
+                    --°C
+                </strong>
+
+                <span>
+                    Current temperature
+                </span>
+
+            </div>
+
+
+            <!-- Weather Details -->
+
+            <div class="panel-details">
+
+                <div>
+
+                    <span>
+                        Feels like
+                    </span>
+
+                    <strong id="panelFeels">
+                        --°C
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Humidity
+                    </span>
+
+                    <strong id="panelHumidity">
+                        --%
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Wind speed
+                    </span>
+
+                    <strong id="panelWind">
+                        -- km/h
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        UV index
+                    </span>
+
+                    <strong id="panelUV">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Heat index
+                    </span>
+
+                    <strong id="panelHeatIndex">
+                        --°C
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Coordinates
+                    </span>
+
+                    <strong id="panelCoordinates">
+                        --
+                    </strong>
+
                 </div>
 
             </div>
 
 
-        </div>
+            <!-- Today's Heat Trend -->
+
+            <div class="heat-trend">
+
+                <div class="trend-header">
+
+                    <span>
+                        TODAY'S HEAT TREND
+                    </span>
+
+                    <strong id="trendSummary">
+                        Waiting for location
+                    </strong>
+
+                </div>
 
 
+                <div class="trend-chart">
 
-        <!-- ================= MAP CONTROLS ================= -->
+                    <div class="chart-line"></div>
 
-        <div class="map-controls">
+                    <div class="chart-point point-1"></div>
+                    <div class="chart-point point-2"></div>
+                    <div class="chart-point point-3"></div>
+                    <div class="chart-point point-4"></div>
+                    <div class="chart-point point-5"></div>
 
-            <button
-                id="zoomIn"
-                type="button"
-                title="Zoom in"
-            >
-                +
-            </button>
-
-            <button
-                id="zoomOut"
-                type="button"
-                title="Zoom out"
-            >
-                −
-            </button>
-
-            <button
-                id="resetMap"
-                type="button"
-                title="Reset map"
-            >
-                ⟳
-            </button>
-
-        </div>
+                </div>
 
 
+                <div class="trend-times">
 
-        <!-- ================= LEGEND ================= -->
+                    <span>
+                        Morning
+                    </span>
 
-        <div class="map-legend">
+                    <span>
+                        Afternoon
+                    </span>
 
-            <strong>
-                HEAT RISK
-            </strong>
+                    <span>
+                        Evening
+                    </span>
 
-            <div>
-
-                <span>
-                    <i class="low-dot"></i>
-                    Low
-                </span>
-
-                <span>
-                    <i class="moderate-dot"></i>
-                    Moderate
-                </span>
-
-                <span>
-                    <i class="high-dot"></i>
-                    High
-                </span>
-
-                <span>
-                    <i class="extreme-dot"></i>
-                    Extreme
-                </span>
+                </div>
 
             </div>
 
+
+            <!-- Safety Guidance -->
+
+            <div class="panel-safety">
+
+                <div class="safety-icon">
+                    🛡️
+                </div>
+
+                <div>
+
+                    <strong>
+                        Safety guidance
+                    </strong>
+
+                    <p id="panelSafety">
+                        Select a location to receive
+                        heat safety guidance.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Detailed Risk Button -->
+
+            <button
+                class="panel-button"
+                id="panelRiskButton"
+                type="button"
+            >
+                View Detailed Heat Risk →
+            </button>
+
+        </aside>
+
+
+        <!-- =================================================
+             MAP INFORMATION
+        ================================================== -->
+
+        <section class="map-info">
+
+            <div class="info-card">
+
+                <span>
+                    01
+                </span>
+
+                <div>
+
+                    <h3>
+                        Search anywhere
+                    </h3>
+
+                    <p>
+                        Search cities and locations around
+                        the world to check their current
+                        heat conditions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>
+                    02
+                </span>
+
+                <div>
+
+                    <h3>
+                        Select a location
+                    </h3>
+
+                    <p>
+                        Click the heat marker to open the
+                        location's current temperature,
+                        humidity, UV and risk information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>
+                    03
+                </span>
+
+                <div>
+
+                    <h3>
+                        View detailed risk
+                    </h3>
+
+                    <p>
+                        Continue to Heat Risk for a more
+                        detailed analysis and safety guidance.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+            Heat<span>Shield</span>
         </div>
 
-
-    </div>
-
-
-
-    <!-- ================= DETAILS PANEL ================= -->
-
-    <aside
-        class="zone-panel"
-        id="zonePanel"
-    >
-
-        <button
-            class="panel-close"
-            id="panelClose"
-            type="button"
-        >
-            ×
-        </button>
-
-
-        <span class="panel-label">
-            SELECTED AREA
-        </span>
-
-
-        <div
-            class="panel-risk-icon"
-            id="panelRiskIcon"
-        >
-            !
-        </div>
-
-
-        <span
-            class="panel-risk-level"
-            id="panelRiskLevel"
-        >
-            HIGH RISK
-        </span>
-
-
-        <h2 id="panelLocation">
-            Central City
-        </h2>
-
-
-        <p id="panelDescription">
-            Heat conditions are currently
-            elevated in this area.
+        <p>
+            Public heat awareness and safety platform.
         </p>
 
-
-        <div class="panel-temperature">
-
-            <strong id="panelTemperature">
-                39°
-            </strong>
-
-            <span>
-                Current temperature
-            </span>
-
-        </div>
-
-
-        <div class="panel-details">
-
-            <div>
-
-                <span>
-                    Feels like
-                </span>
-
-                <strong id="panelFeels">
-                    43°C
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <span>
-                    Humidity
-                </span>
-
-                <strong id="panelHumidity">
-                    48%
-                </strong>
-
-            </div>
-
-
-            <div>
-
-                <span>
-                    UV index
-                </span>
-
-                <strong id="panelUV">
-                    8
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <button
-            class="panel-button"
-            id="panelSafetyButton"
-            type="button"
-        >
-            View safety guidance →
-        </button>
-
-    </aside>
-
-</section>
-
-
-
-<!-- =====================================================
-     INFORMATION
-===================================================== -->
-
-<section class="map-info-grid">
-
-
-    <article class="info-card">
-
         <span>
-            01
+            © 2026 HeatShield
         </span>
 
-        <div>
-
-            <h3>
-                Read the heat zones
-            </h3>
-
-            <p>
-                Colors show how severe the current
-                heat conditions are in each area.
-            </p>
-
-        </div>
-
-    </article>
+    </footer>
 
 
-    <article class="info-card">
+    <!-- =====================================================
+         SCRIPTS
+    ====================================================== -->
 
-        <span>
-            02
-        </span>
-
-        <div>
-
-            <h3>
-                Explore nearby areas
-            </h3>
-
-            <p>
-                Click a heat zone to compare
-                temperature and local conditions.
-            </p>
-
-        </div>
-
-    </article>
+    <!-- Leaflet -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
 
 
-    <article class="info-card">
-
-        <span>
-            03
-        </span>
-
-        <div>
-
-            <h3>
-                Make safer decisions
-            </h3>
-
-            <p>
-                Use heat information to plan
-                outdoor activities more safely.
-            </p>
-
-        </div>
-
-    </article>
-
-
-</section>
-
-
-</main>
-
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer>
-
-    <div class="footer-logo">
-        Heat<span>Shield</span>
-    </div>
-
-    <p>
-        Public heat awareness and safety platform.
-    </p>
-
-    <span>
-        © 2026 HeatShield
-    </span>
-
-</footer>
-
-
-
-<script src="js/heat-map.js"></script>
+    <!-- HeatShield Heat Map -->
+    <script src="js/heat-map.js"></script>
 
 </body>
 

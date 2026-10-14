@@ -1497,3 +1497,119 @@ footer {
     }
 
 }
+
+/* =====================================================
+   READABILITY
+===================================================== */
+
+body {
+    font-size: 16px;
+}
+
+.nav-links a {
+    font-size: 16px !important;
+}
+
+.logo-text strong {
+    font-size: 21px !important;
+}
+
+.logo-text small {
+    font-size: 11px !important;
+}
+
+.location-button {
+    font-size: 14px !important;
+}
+
+h1 {
+    font-size: clamp(32px, 4vw, 52px);
+}
+
+h2 {
+    font-size: 28px;
+}
+
+h3 {
+    font-size: 19px;
+}
+
+p {
+    font-size: 15px;
+    line-height: 1.65;
+}
+
+button {
+    font-size: 14px;
+}
+
+.trend-header span {
+    font-size: 13px !important;
+}
+
+.trend-header strong {
+    font-size: 14px !important;
+}
+
+/* =========================================
+   HEATSHIELD - READABILITY IMPROVEMENTS
+========================================= */
+
+body {
+    font-size: 16px;
+}
+
+/* Main paragraph text */
+main p,
+main li {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+}
+
+/* Card descriptions and information */
+main .warning-content p,
+main .action-card p,
+main .action-step p,
+main .service-card p,
+main .about-content p,
+main .about-card p,
+main .safety-content p,
+main .info-card p,
+main .condition-card p,
+main .alert-card-content p,
+main .notification-content p {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+}
+
+/* Section headings */
+main h2 {
+    font-size: clamp(24px, 2.5vw, 32px);
+    line-height: 1.3;
+}
+
+main h3 {
+    font-size: 19px;
+    line-height: 1.4;
+}
+
+/* Navigation */
+.nav-links a {
+    font-size: 15px !important;
+}
+
+/* Small labels */
+main small {
+    font-size: 12px !important;
+}
+
+/* Buttons */
+main button {
+    font-size: 14px;
+    min-height: 40px;
+}
+
+/* Readable muted text */
+main p {
+    color: #aeb8c2;
+}

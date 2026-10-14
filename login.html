@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HeatShield | Login</title>
+
+    <link
+        rel="stylesheet"
+        href="css/login.css"
+    >
+
+</head>
+
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-card">
+
+
+            <!-- =========================
+                 LOGO
+            ========================== -->
+
+            <a
+                href="index.html"
+                class="login-logo"
+            >
+
+                <div class="logo-icon">
+                    ☀
+                </div>
+
+                <div class="logo-text">
+
+                    <strong>
+                        Heat<span>Shield</span>
+                    </strong>
+
+                    <small>
+                        STAY AWARE. STAY SAFE.
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- =========================
+                 HEADING
+            ========================== -->
+
+            <div class="login-heading">
+
+                <h1>
+                    Welcome back
+                </h1>
+
+                <p>
+                    Sign in to continue to HeatShield.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 LOGIN FORM
+            ========================== -->
+
+            <form id="loginForm">
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPTIONS -->
+
+                <div class="login-options">
+
+                    <label class="remember-me">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+
+                    <a
+                        href="#"
+                        id="forgotPassword"
+                    >
+                        Forgot password?
+                    </a>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+
+                    <span>
+                        Login
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- MESSAGE -->
+
+                <p
+                    id="loginMessage"
+                    class="login-message"
+                ></p>
+
+
+            </form>
+
+
+            <!-- =========================
+                 DIVIDER
+            ========================== -->
+
+            <div class="divider">
+
+                <span></span>
+
+                <p>
+                    or
+                </p>
+
+                <span></span>
+
+            </div>
+
+
+            <!-- =========================
+                 GUEST ACCESS
+            ========================== -->
+
+            <button
+                type="button"
+                id="guestButton"
+                class="guest-button"
+            >
+
+                Continue as Guest
+
+            </button>
+
+
+            <!-- =========================
+                 FOOTER
+            ========================== -->
+
+            <p class="login-footer">
+
+                Don't have an account?
+
+                <a href="#">
+                    Create account
+                </a>
+
+            </p>
+
+
+            <p class="security-note">
+
+                🔒 Your information is kept secure.
+
+            </p>
+
+
+        </section>
+
+    </main>
+
+
+    <script src="js/login.js"></script>
+
+</body>
+
+</html>

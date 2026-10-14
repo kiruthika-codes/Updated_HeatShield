@@ -1,5 +1,11 @@
 /* =====================================================
    HEATSHIELD — HEAT MAP
+   Real World Map + Location Risk Panel
+===================================================== */
+
+
+/* =====================================================
+   RESET
 ===================================================== */
 
 * {
@@ -14,13 +20,9 @@ html {
 
 body {
     min-height: 100vh;
-
     background: #0b1016;
-
     color: #f2f3f4;
-
     font-family: "Inter", sans-serif;
-
     overflow-x: hidden;
 }
 
@@ -46,26 +48,18 @@ a {
 
 .navbar {
     position: sticky;
-
     top: 0;
-
-    z-index: 100;
+    z-index: 1000;
 
     height: 78px;
-
     padding: 0 6%;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
-    background:
-        rgba(9, 13, 19, 0.91);
-
-    border-bottom:
-        1px solid rgba(255,255,255,0.06);
+    background: rgba(9, 13, 19, 0.94);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
 
     backdrop-filter: blur(18px);
 }
@@ -77,9 +71,7 @@ a {
 
 .logo {
     display: flex;
-
     align-items: center;
-
     gap: 10px;
 }
 
@@ -88,12 +80,10 @@ a {
     height: 46px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     background: #ff7839;
-
     color: #fff;
 
     font-size: 19px;
@@ -111,11 +101,9 @@ a {
         9% 13%
     );
 
-    filter:
-        drop-shadow(
-            0 0 12px
-            rgba(255,120,57,0.18)
-        );
+    filter: drop-shadow(
+        0 0 12px rgba(255,120,57,0.18)
+    );
 }
 
 .logo-text strong {
@@ -123,8 +111,7 @@ a {
 
     color: #f3f4f5;
 
-    font-size: 17px;
-
+    font-size: 18px;
     font-weight: 700;
 }
 
@@ -137,10 +124,9 @@ a {
 
     margin-top: 3px;
 
-    color: #626b75;
+    color: #69727c;
 
-    font-size: 6px;
-
+    font-size: 8px;
     font-weight: 600;
 
     letter-spacing: 1.1px;
@@ -153,9 +139,7 @@ a {
 
 .nav-links {
     display: flex;
-
     align-items: center;
-
     gap: 30px;
 }
 
@@ -165,7 +149,6 @@ a {
     color: #a7adb5;
 
     font-size: 14px;
-
     font-weight: 500;
 
     transition: color 0.25s ease;
@@ -187,7 +170,6 @@ a {
 
     left: 0;
     right: 0;
-
     bottom: -11px;
 
     height: 2px;
@@ -204,56 +186,46 @@ a {
 
 .nav-actions {
     display: flex;
-
     align-items: center;
-
     gap: 10px;
 }
 
 .location-button {
     display: flex;
-
     align-items: center;
-
-    gap: 7px;
+    gap: 8px;
 
     padding: 10px 15px;
 
-    border:
-        1px solid rgba(255,255,255,0.09);
-
+    border: 1px solid rgba(255,255,255,0.09);
     border-radius: 22px;
 
-    background:
-        rgba(255,255,255,0.025);
+    background: rgba(255,255,255,0.025);
 
     color: #aeb4bb;
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .location-button span:first-child {
     color: #ff7839;
-
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .menu-button {
     display: none;
 
-    width: 39px;
-    height: 39px;
+    width: 40px;
+    height: 40px;
 
-    border:
-        1px solid #272f39;
-
+    border: 1px solid #272f39;
     border-radius: 10px;
 
     background: #151b23;
 
     color: #fff;
 
-    font-size: 17px;
+    font-size: 18px;
 }
 
 
@@ -262,24 +234,20 @@ a {
 ===================================================== */
 
 main {
-    width: min(1380px, 100%);
-
+    width: min(1450px, 100%);
     margin: auto;
 
-    padding:
-        62px 6% 90px;
+    padding: 55px 5% 85px;
 }
 
 
 /* =====================================================
-   INTRO
+   HEADER
 ===================================================== */
 
-.map-intro {
+.map-header {
     display: flex;
-
     align-items: flex-end;
-
     justify-content: space-between;
 
     gap: 30px;
@@ -287,81 +255,18 @@ main {
 
 .eyebrow {
     display: flex;
-
     align-items: center;
-
-    gap: 8px;
+    gap: 9px;
 
     color: #ff7839;
 
-    font-size: 8px;
-
+    font-size: 11px;
     font-weight: 700;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
 }
 
 .pulse-dot {
-    width: 6px;
-    height: 6px;
-
-    border-radius: 50%;
-
-    background: #ff7438;
-
-    box-shadow:
-        0 0 0 5px
-        rgba(255,116,56,0.08);
-
-    animation:
-        pulse 1.8s infinite;
-}
-
-.map-intro h1 {
-    margin-top: 16px;
-
-    font-size:
-        clamp(40px, 5vw, 59px);
-
-    line-height: 1.04;
-
-    letter-spacing: -3px;
-}
-
-.map-intro h1 span {
-    color: #ff7839;
-}
-
-.map-intro p {
-    max-width: 590px;
-
-    margin-top: 16px;
-
-    color: #737c86;
-
-    font-size: 10px;
-
-    line-height: 1.8;
-}
-
-.map-status {
-    display: flex;
-
-    align-items: center;
-
-    gap: 11px;
-
-    padding: 12px 15px;
-
-    border:
-        1px solid #252d36;
-
-    border-radius: 11px;
-
-    background: #111720;
-}
-
-.status-dot {
     width: 8px;
     height: 8px;
 
@@ -370,27 +275,34 @@ main {
     background: #ff7438;
 
     box-shadow:
-        0 0 12px
-        rgba(255,116,56,0.55);
+        0 0 0 5px rgba(255,116,56,0.08);
+
+    animation: pulse 1.8s infinite;
 }
 
-.map-status strong,
-.map-status small {
-    display: block;
+.map-header h1 {
+    margin-top: 15px;
+
+    font-size: clamp(42px, 5vw, 62px);
+
+    line-height: 1.05;
+
+    letter-spacing: -3px;
 }
 
-.map-status strong {
-    color: #c8cdd2;
-
-    font-size: 9px;
+.map-header h1 span {
+    color: #ff7839;
 }
 
-.map-status small {
-    margin-top: 3px;
+.map-header p {
+    max-width: 650px;
 
-    color: #606a75;
+    margin-top: 17px;
 
-    font-size: 7px;
+    color: #7d8791;
+
+    font-size: 14px;
+    line-height: 1.8;
 }
 
 
@@ -400,38 +312,48 @@ main {
 
 .map-toolbar {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
-    gap: 15px;
+    gap: 18px;
 
-    margin-top: 42px;
+    margin-top: 35px;
 }
 
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
 .search-box {
-    width: 320px;
-    height: 42px;
+    width: min(600px, 100%);
+    height: 52px;
 
     display: flex;
-
     align-items: center;
 
-    padding-left: 13px;
+    padding-left: 16px;
 
-    border:
-        1px solid #29313b;
-
-    border-radius: 10px;
+    border: 1px solid #303945;
+    border-radius: 12px;
 
     background: #111720;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: rgba(255,120,57,0.55);
+
+    box-shadow:
+        0 0 0 4px rgba(255,120,57,0.06);
 }
 
 .search-box > span {
-    color: #65707b;
-
-    font-size: 17px;
+    color: #78838e;
+    font-size: 22px;
 }
 
 .search-box input {
@@ -439,697 +361,167 @@ main {
 
     min-width: 0;
 
-    padding: 0 9px;
+    height: 100%;
+
+    padding: 0 12px;
 
     outline: none;
-
     border: none;
 
     background: transparent;
 
-    color: #dce0e3;
+    color: #e4e7e9;
 
-    font-size: 9px;
+    font-size: 14px;
 }
 
 .search-box input::placeholder {
-    color: #5f6873;
+    color: #65707a;
 }
 
 .search-box button {
     height: 100%;
 
-    padding: 0 15px;
+    padding: 0 22px;
 
-    border-radius:
-        0 9px 9px 0;
+    border-radius: 0 11px 11px 0;
 
-    background:
-        rgba(255,120,57,0.09);
+    background: rgba(255,120,57,0.12);
 
     color: #ff7b40;
 
-    font-size: 8px;
+    font-size: 13px;
+    font-weight: 700;
 
-    font-weight: 600;
+    transition: background 0.2s ease;
 }
 
-.map-filters {
+.search-box button:hover {
+    background: rgba(255,120,57,0.2);
+}
+
+
+/* =====================================================
+   LIVE STATUS
+===================================================== */
+
+.map-status {
     display: flex;
+    align-items: center;
+    gap: 11px;
 
-    gap: 5px;
+    padding: 12px 16px;
 
-    padding: 4px;
-
-    border:
-        1px solid #252d36;
-
-    border-radius: 10px;
+    border: 1px solid #252d36;
+    border-radius: 11px;
 
     background: #111720;
 }
 
-.map-filter {
-    padding: 8px 12px;
+.status-dot {
+    width: 9px;
+    height: 9px;
 
-    border-radius: 7px;
+    flex-shrink: 0;
 
-    background: transparent;
+    border-radius: 50%;
+
+    background: #54b47d;
+
+    box-shadow:
+        0 0 12px rgba(84,180,125,0.5);
+}
+
+.map-status strong,
+.map-status small {
+    display: block;
+}
+
+.map-status strong {
+    color: #cbd0d5;
+
+    font-size: 12px;
+}
+
+.map-status small {
+    margin-top: 4px;
 
     color: #69737e;
 
-    font-size: 8px;
-
-    font-weight: 600;
-}
-
-.map-filter.active {
-    background:
-        rgba(255,120,57,0.11);
-
-    color: #ff7b40;
+    font-size: 10px;
 }
 
 
 /* =====================================================
-   MAP LAYOUT
+   MAP SECTION
 ===================================================== */
 
-.map-layout {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr) 285px;
-
-    gap: 13px;
-
-    margin-top: 15px;
+.map-section {
+    margin-top: 18px;
 }
-
-
-/* =====================================================
-   MAP CONTAINER
-===================================================== */
 
 .map-container {
     position: relative;
 
-    height: 570px;
+    width: 100%;
+    height: 650px;
 
     overflow: hidden;
 
-    border:
-        1px solid #28313b;
+    border: 1px solid #28313b;
+    border-radius: 20px;
 
-    border-radius: 18px;
+    background: #10191f;
 
-    background:
-        #10191f;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.25);
 }
 
 
 /* =====================================================
-   ZOOMABLE WORLD
+   REAL LEAFLET MAP
 ===================================================== */
 
-.map-world {
-    position: absolute;
-
+#mapWorld {
     width: 100%;
     height: 100%;
 
-    left: 0;
-    top: 0;
-
-    transform-origin: 50% 50%;
-
-    transition:
-        transform 0.35s
-        cubic-bezier(.2,.8,.2,1);
-
-    background:
-        radial-gradient(
-            circle at 52% 45%,
-            #203038 0%,
-            #17242b 45%,
-            #10191f 100%
-        );
-}
-
-
-/* =====================================================
-   MAP TEXTURE
-===================================================== */
-
-.map-world::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    background-image:
-        linear-gradient(
-            rgba(155,180,180,0.045) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(155,180,180,0.045) 1px,
-            transparent 1px
-        );
-
-    background-size:
-        42px 42px;
-
-    opacity: 0.65;
-}
-
-
-/* =====================================================
-   LAND MASSES
-===================================================== */
-
-.land-shape {
-    position: absolute;
-
-    background:
-        #26363a;
-
-    border:
-        1px solid rgba(127,157,151,0.18);
-
-    box-shadow:
-        inset 0 0 35px
-        rgba(0,0,0,0.18);
-}
-
-.land-one {
-    width: 46%;
-    height: 44%;
-
-    left: 5%;
-    top: 10%;
-
-    border-radius:
-        47% 31% 44% 36% /
-        35% 42% 39% 51%;
-
-    transform:
-        rotate(-10deg);
-}
-
-.land-two {
-    width: 45%;
-    height: 48%;
-
-    right: 4%;
-    top: 8%;
-
-    border-radius:
-        34% 46% 37% 51% /
-        43% 31% 50% 39%;
-
-    transform:
-        rotate(7deg);
-}
-
-.land-three {
-    width: 42%;
-    height: 37%;
-
-    left: 12%;
-    bottom: 4%;
-
-    border-radius:
-        45% 39% 52% 32% /
-        39% 48% 35% 47%;
-
-    transform:
-        rotate(9deg);
-}
-
-.land-four {
-    width: 37%;
-    height: 34%;
-
-    right: 8%;
-    bottom: 4%;
-
-    border-radius:
-        52% 33% 43% 39% /
-        35% 47% 40% 53%;
-
-    transform:
-        rotate(-12deg);
-}
-
-
-/* =====================================================
-   WATER
-===================================================== */
-
-.water-area {
-    position: absolute;
-
-    background:
-        #11272d;
-
-    opacity: 0.9;
-
-    border:
-        1px solid rgba(80,142,151,0.12);
-}
-
-.water-one {
-    width: 23%;
-    height: 120%;
-
-    left: 40%;
-    top: -10%;
-
-    border-radius: 50%;
-
-    transform:
-        rotate(16deg);
-}
-
-.water-two {
-    width: 120%;
-    height: 17%;
-
-    left: -10%;
-    top: 46%;
-
-    border-radius: 50%;
-
-    transform:
-        rotate(-5deg);
-}
-
-
-/* =====================================================
-   ROADS
-===================================================== */
-
-.road,
-.minor-road {
-    position: absolute;
-
-    height: 3px;
-
-    background:
-        rgba(205,187,143,0.22);
-
-    transform-origin: left center;
-
-    z-index: 2;
-
-    pointer-events: none;
-}
-
-.road-one {
-    width: 65%;
-
-    left: 5%;
-    top: 48%;
-
-    transform:
-        rotate(12deg);
-}
-
-.road-two {
-    width: 58%;
-
-    left: 22%;
-    top: 28%;
-
-    transform:
-        rotate(42deg);
-}
-
-.road-three {
-    width: 65%;
-
-    left: 19%;
-    top: 68%;
-
-    transform:
-        rotate(-18deg);
-}
-
-.road-four {
-    width: 53%;
-
-    left: 46%;
-    top: 12%;
-
-    transform:
-        rotate(79deg);
-}
-
-.road-five {
-    width: 43%;
-
-    left: 43%;
-    top: 73%;
-
-    transform:
-        rotate(-64deg);
-}
-
-.road-six {
-    width: 50%;
-
-    left: 5%;
-    top: 76%;
-
-    transform:
-        rotate(-43deg);
-}
-
-.road-seven {
-    width: 46%;
-
-    left: 54%;
-    top: 53%;
-
-    transform:
-        rotate(23deg);
-}
-
-.road-eight {
-    width: 36%;
-
-    left: 59%;
-    top: 24%;
-
-    transform:
-        rotate(-31deg);
-}
-
-.minor-road {
-    height: 1px;
-
-    background:
-        rgba(211,201,169,0.16);
-}
-
-.minor-one {
-    width: 38%;
-
-    left: 10%;
-    top: 35%;
-
-    transform:
-        rotate(-14deg);
-}
-
-.minor-two {
-    width: 31%;
-
-    left: 30%;
-    top: 59%;
-
-    transform:
-        rotate(30deg);
-}
-
-.minor-three {
-    width: 35%;
-
-    left: 52%;
-    top: 41%;
-
-    transform:
-        rotate(-16deg);
-}
-
-.minor-four {
-    width: 27%;
-
-    left: 60%;
-    top: 63%;
-
-    transform:
-        rotate(48deg);
-}
-
-.minor-five {
-    width: 29%;
-
-    left: 69%;
-    top: 29%;
-
-    transform:
-        rotate(11deg);
-}
-
-
-/* =====================================================
-   MAP LABELS
-===================================================== */
-
-.place-label {
-    position: absolute;
-
-    color: #526067;
-
-    font-size: 7px;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-
-    z-index: 3;
-}
-
-.north-label {
-    top: 6%;
-    left: 49%;
-}
-
-.west-label {
-    top: 48%;
-    left: 5%;
-}
-
-.east-label {
-    top: 48%;
-    right: 5%;
-}
-
-.south-label {
-    bottom: 6%;
-    left: 48%;
-}
-
-
-/* =====================================================
-   CITY LABELS
-===================================================== */
-
-.city-label {
-    position: absolute;
-
-    z-index: 4;
-
-    color: #738087;
-
-    font-size: 7px;
-
-    font-weight: 500;
-
-    white-space: nowrap;
-
-    pointer-events: none;
-}
-
-.city-one {
-    left: 21%;
-    top: 24%;
-}
-
-.city-two {
-    left: 38%;
-    top: 30%;
-}
-
-.city-three {
-    left: 51%;
-    top: 45%;
-}
-
-.city-four {
-    left: 68%;
-    top: 30%;
-}
-
-.city-five {
-    left: 44%;
-    top: 66%;
-}
-
-.city-six {
-    left: 19%;
-    top: 55%;
-}
-
-.city-seven {
-    left: 73%;
-    top: 65%;
-}
-
-
-/* =====================================================
-   HEAT ZONES
-===================================================== */
-
-.heat-zone {
-    position: absolute;
-
-    width: 38px;
-    height: 38px;
-
-    z-index: 10;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    transform:
-        translate(-50%, -50%);
-
-    border-radius: 50%;
-
-    background: transparent;
-}
-
-.heat-zone span {
     position: relative;
 
-    z-index: 3;
-
-    width: 11px;
-    height: 11px;
-
-    border-radius: 50%;
-
-    transition:
-        transform 0.25s;
+    background: #10191f;
 }
 
-.heat-zone::before {
-    content: "";
+#mapWorld .leaflet-container {
+    width: 100%;
+    height: 100%;
 
-    position: absolute;
+    border-radius: 20px;
 
-    width: 34px;
-    height: 34px;
+    background: #10191f;
 
-    border-radius: 50%;
-
-    animation:
-        zonePulse 2.5s infinite;
-}
-
-.heat-zone.low span {
-    background: #56a986;
-}
-
-.heat-zone.low::before {
-    background:
-        rgba(86,169,134,0.15);
-}
-
-.heat-zone.moderate span {
-    background: #c4a85b;
-}
-
-.heat-zone.moderate::before {
-    background:
-        rgba(196,168,91,0.16);
-}
-
-.heat-zone.high span {
-    background: #e8794c;
-}
-
-.heat-zone.high::before {
-    background:
-        rgba(232,121,76,0.18);
-}
-
-.heat-zone.extreme span {
-    background: #c85d53;
-}
-
-.heat-zone.extreme::before {
-    background:
-        rgba(200,93,83,0.2);
-}
-
-.heat-zone:hover span {
-    transform: scale(1.5);
+    font-family: "Inter", sans-serif;
 }
 
 
 /* =====================================================
-   CURRENT LOCATION
+   LEAFLET POPUP
 ===================================================== */
 
-.current-location {
-    position: absolute;
+.leaflet-popup-content-wrapper {
+    background: #151c24;
+    color: #e7eaec;
 
-    left: 55%;
-    top: 53%;
-
-    z-index: 15;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 6px;
-
-    transform:
-        translate(-50%, -50%);
-
-    pointer-events: none;
+    border-radius: 12px;
 }
 
-.current-location > span {
-    width: 13px;
-    height: 13px;
-
-    border:
-        2px solid #fff;
-
-    border-radius: 50%;
-
-    background: #ff7839;
-
-    box-shadow:
-        0 0 0 6px
-        rgba(255,120,57,0.13),
-        0 0 20px
-        rgba(255,120,57,0.4);
+.leaflet-popup-tip {
+    background: #151c24;
 }
 
-.current-location div {
-    padding: 4px 6px;
+.leaflet-popup-content {
+    margin: 14px 16px;
 
-    border-radius: 4px;
-
-    background:
-        rgba(5,9,13,0.78);
-
-    color: #929ba3;
-
-    font-size: 6px;
-
-    white-space: nowrap;
+    font-family: "Inter", sans-serif;
 }
 
 
@@ -1140,40 +532,36 @@ main {
 .map-controls {
     position: absolute;
 
-    top: 15px;
-    right: 15px;
+    top: 18px;
+    right: 18px;
 
-    z-index: 30;
+    z-index: 500;
 
     display: flex;
-
     flex-direction: column;
 
-    gap: 5px;
+    gap: 6px;
 }
 
 .map-controls button {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
 
-    border:
-        1px solid #303944;
+    border: 1px solid #303944;
+    border-radius: 9px;
 
-    border-radius: 8px;
+    background: rgba(8,13,18,0.92);
 
-    background:
-        rgba(8,13,18,0.9);
+    color: #c0c6cb;
 
-    color: #b3bac0;
-
-    font-size: 18px;
+    font-size: 20px;
 
     backdrop-filter: blur(8px);
 
     transition:
-        color 0.2s,
-        border-color 0.2s,
-        background 0.2s;
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
 }
 
 .map-controls button:hover {
@@ -1194,20 +582,17 @@ main {
 .map-legend {
     position: absolute;
 
-    left: 15px;
-    bottom: 15px;
+    left: 18px;
+    bottom: 18px;
 
-    z-index: 30;
+    z-index: 500;
 
-    padding: 12px;
+    padding: 14px 16px;
 
-    border:
-        1px solid #29333d;
+    border: 1px solid #29333d;
+    border-radius: 11px;
 
-    border-radius: 9px;
-
-    background:
-        rgba(8,13,18,0.9);
+    background: rgba(8,13,18,0.92);
 
     backdrop-filter: blur(10px);
 }
@@ -1215,36 +600,33 @@ main {
 .map-legend > strong {
     display: block;
 
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 
-    color: #aeb5bb;
+    color: #c2c8cd;
 
-    font-size: 7px;
+    font-size: 10px;
 
     letter-spacing: 1px;
 }
 
 .map-legend > div {
     display: flex;
-
-    gap: 11px;
+    gap: 13px;
 }
 
 .map-legend span {
     display: flex;
-
     align-items: center;
+    gap: 6px;
 
-    gap: 5px;
+    color: #858e97;
 
-    color: #707a83;
-
-    font-size: 6px;
+    font-size: 10px;
 }
 
 .map-legend i {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
 
     border-radius: 50%;
 }
@@ -1254,7 +636,7 @@ main {
 }
 
 .moderate-dot {
-    background: #c4a85b;
+    background: #f2c94c;
 }
 
 .high-dot {
@@ -1262,25 +644,25 @@ main {
 }
 
 .extreme-dot {
-    background: #c85d53;
+    background: #d9534f;
 }
 
 
 /* =====================================================
-   ZONE PANEL
+   RISK PANEL
 ===================================================== */
 
 .zone-panel {
     position: relative;
 
-    min-height: 570px;
+    width: 100%;
 
-    padding: 26px 23px;
+    margin-top: 18px;
 
-    border:
-        1px solid #252e38;
+    padding: 30px;
 
-    border-radius: 18px;
+    border: 1px solid #252e38;
+    border-radius: 20px;
 
     background:
         linear-gradient(
@@ -1288,57 +670,75 @@ main {
             #151c24,
             #11171e
         );
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,0.2);
 }
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
 
 .panel-close {
     position: absolute;
 
-    top: 14px;
-    right: 14px;
+    top: 18px;
+    right: 18px;
 
-    width: 29px;
-    height: 29px;
+    width: 34px;
+    height: 34px;
 
     border-radius: 50%;
 
     background: #202832;
 
-    color: #8e969f;
+    color: #9aa2aa;
 
-    font-size: 17px;
+    font-size: 20px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
 }
+
+.panel-close:hover {
+    background: #2a343f;
+    color: #fff;
+}
+
+
+/* =====================================================
+   PANEL HEADER
+===================================================== */
 
 .panel-label {
     color: #ff7839;
 
-    font-size: 7px;
-
+    font-size: 10px;
     font-weight: 700;
 
-    letter-spacing: 1.2px;
+    letter-spacing: 1.4px;
 }
 
 .panel-risk-icon {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    margin-top: 25px;
+    margin-top: 20px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
-    background:
-        rgba(232,121,76,0.1);
+    background: rgba(232,121,76,0.1);
 
     color: #e8794c;
 
-    font-size: 19px;
-
-    font-weight: 700;
+    font-size: 21px;
+    font-weight: 800;
 }
 
 .panel-risk-level {
@@ -1346,50 +746,54 @@ main {
 
     margin-top: 14px;
 
-    padding: 5px 8px;
+    padding: 7px 10px;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
-    background:
-        rgba(232,121,76,0.08);
+    background: rgba(232,121,76,0.08);
 
     color: #e8794c;
 
-    font-size: 6px;
-
+    font-size: 11px;
     font-weight: 700;
 
     letter-spacing: 1px;
 }
 
 .zone-panel h2 {
-    margin-top: 12px;
+    margin-top: 14px;
 
-    color: #e5e7e9;
+    color: #e7e9eb;
 
-    font-size: 23px;
+    font-size: 30px;
 
-    letter-spacing: -0.7px;
+    letter-spacing: -0.8px;
 }
 
 .zone-panel > p {
-    margin-top: 9px;
+    max-width: 800px;
 
-    color: #737c86;
+    margin-top: 10px;
 
-    font-size: 9px;
+    color: #808a94;
+
+    font-size: 13px;
 
     line-height: 1.7;
 }
 
+
+/* =====================================================
+   MAIN TEMPERATURE
+===================================================== */
+
 .panel-temperature {
-    margin-top: 28px;
+    margin-top: 25px;
 
-    padding-bottom: 18px;
+    padding: 20px 0;
 
-    border-bottom:
-        1px solid
-        rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .panel-temperature strong {
@@ -1397,35 +801,45 @@ main {
 
     color: #f0f1f2;
 
-    font-size: 43px;
+    font-size: 50px;
 
     letter-spacing: -2px;
 }
 
 .panel-temperature span {
-    color: #616b76;
+    color: #69737d;
 
-    font-size: 7px;
+    font-size: 11px;
 }
+
+
+/* =====================================================
+   WEATHER DETAILS
+===================================================== */
 
 .panel-details {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(6, 1fr);
 
-    gap: 8px;
+    gap: 10px;
 
     margin-top: 18px;
 }
 
 .panel-details div {
-    padding: 10px 7px;
+    min-height: 75px;
 
-    border-radius: 8px;
+    padding: 13px 11px;
+
+    border-radius: 10px;
 
     background:
         rgba(255,255,255,0.025);
+
+    border:
+        1px solid rgba(255,255,255,0.04);
 }
 
 .panel-details span,
@@ -1434,52 +848,258 @@ main {
 }
 
 .panel-details span {
-    color: #5f6973;
+    color: #69737d;
 
-    font-size: 6px;
+    font-size: 10px;
 }
 
 .panel-details strong {
-    margin-top: 5px;
+    margin-top: 7px;
 
-    color: #c7ccd1;
+    color: #d0d5d9;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   HEAT TREND
+===================================================== */
+
+.heat-trend {
+    margin-top: 24px;
+
+    padding: 18px;
+
+    border:
+        1px solid rgba(255,255,255,0.05);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.018);
+}
+
+.trend-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.trend-header span {
+    color: #8e979f;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.trend-header strong {
+    color: #c7cdd2;
+
+    font-size: 11px;
+}
+
+.trend-chart {
+    position: relative;
+
+    height: 105px;
+
+    margin-top: 18px;
+
+    border-bottom: 1px solid #2a323a;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.035) 0,
+            rgba(255,255,255,0.035) 1px,
+            transparent 1px,
+            transparent 26px
+        );
+}
+
+.chart-line {
+    position: absolute;
+
+    left: 5%;
+    right: 5%;
+    top: 48%;
+
+    height: 3px;
+
+    border-radius: 20px;
+
+    background: #ff7839;
+
+    transform:
+        rotate(-3deg);
+
+    box-shadow:
+        0 0 12px rgba(255,120,57,0.3);
+}
+
+.chart-point {
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    border: 2px solid #111720;
+
+    border-radius: 50%;
+
+    background: #ff7839;
+
+    z-index: 2;
+}
+
+.point-1 {
+    left: 5%;
+    top: 53%;
+}
+
+.point-2 {
+    left: 27%;
+    top: 43%;
+}
+
+.point-3 {
+    left: 50%;
+    top: 36%;
+}
+
+.point-4 {
+    left: 73%;
+    top: 27%;
+}
+
+.point-5 {
+    right: 5%;
+    top: 32%;
+}
+
+.trend-times {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    color: #626c76;
 
     font-size: 9px;
 }
 
+
+/* =====================================================
+   SAFETY GUIDANCE
+===================================================== */
+
+.panel-safety {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border:
+        1px solid rgba(255,255,255,0.05);
+
+    border-radius: 11px;
+
+    background:
+        rgba(84,180,125,0.035);
+}
+
+.safety-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: rgba(84,180,125,0.1);
+
+    font-size: 17px;
+}
+
+.panel-safety strong {
+    display: block;
+
+    color: #c9ced2;
+
+    font-size: 12px;
+}
+
+.panel-safety p {
+    margin-top: 5px;
+
+    color: #737d87;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   DETAILED RISK BUTTON
+===================================================== */
+
 .panel-button {
     width: 100%;
 
-    margin-top: 25px;
+    margin-top: 20px;
 
-    padding: 11px;
+    padding: 14px;
 
-    border-radius: 8px;
+    border-radius: 9px;
 
     background:
         rgba(255,120,57,0.1);
 
     color: #ff7b40;
 
-    font-size: 8px;
+    font-size: 13px;
+    font-weight: 700;
 
-    font-weight: 600;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.panel-button:hover {
+    background:
+        rgba(255,120,57,0.17);
+
+    transform: translateY(-1px);
 }
 
 
 /* =====================================================
-   INFO
+   INFORMATION CARDS
 ===================================================== */
 
-.map-info-grid {
+.map-info {
     display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap: 13px;
+    gap: 14px;
 
-    margin-top: 15px;
+    margin-top: 18px;
 }
 
 .info-card {
@@ -1487,7 +1107,7 @@ main {
 
     gap: 15px;
 
-    padding: 20px;
+    padding: 22px;
 
     border:
         1px solid #222b35;
@@ -1500,23 +1120,22 @@ main {
 .info-card > span {
     color: #ff7839;
 
-    font-size: 8px;
-
+    font-size: 11px;
     font-weight: 700;
 }
 
 .info-card h3 {
     color: #d8dbde;
 
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .info-card p {
-    margin-top: 7px;
+    margin-top: 8px;
 
-    color: #626c76;
+    color: #6f7983;
 
-    font-size: 8px;
+    font-size: 11px;
 
     line-height: 1.7;
 }
@@ -1528,31 +1147,26 @@ main {
 
 footer {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
     gap: 20px;
 
-    padding:
-        27px 6%;
+    padding: 28px 6%;
 
-    border-top:
-        1px solid #1c222b;
+    border-top: 1px solid #1c222b;
 
     background: #090d13;
 
-    color: #555d67;
+    color: #626b75;
 
-    font-size: 8px;
+    font-size: 10px;
 }
 
 .footer-logo {
     color: #f0f1f2;
 
-    font-size: 14px;
-
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -1562,7 +1176,7 @@ footer {
 
 
 /* =====================================================
-   ANIMATIONS
+   ANIMATION
 ===================================================== */
 
 @keyframes pulse {
@@ -1581,25 +1195,6 @@ footer {
     }
 }
 
-@keyframes zonePulse {
-
-    0% {
-        transform: scale(.55);
-
-        opacity: .8;
-    }
-
-    70% {
-        transform: scale(1.2);
-
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
 
 /* =====================================================
    TABLET
@@ -1608,22 +1203,19 @@ footer {
 @media (max-width: 1100px) {
 
     .nav-links {
-        gap: 19px;
+        gap: 18px;
     }
 
     .nav-links a {
         font-size: 12px;
     }
 
-    .map-layout {
-        grid-template-columns: 1fr;
+    .panel-details {
+        grid-template-columns:
+            repeat(3, 1fr);
     }
 
-    .zone-panel {
-        min-height: auto;
-    }
-
-    .map-info-grid {
+    .map-info {
         grid-template-columns: 1fr;
     }
 
@@ -1644,14 +1236,11 @@ footer {
         position: absolute;
 
         top: 70px;
-
         left: 5%;
         right: 5%;
 
         display: flex;
-
         flex-direction: column;
-
         align-items: flex-start;
 
         gap: 19px;
@@ -1670,7 +1259,7 @@ footer {
     }
 
     .nav-links.open a {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .nav-links.open a.active::after {
@@ -1681,7 +1270,7 @@ footer {
         display: block;
     }
 
-    .map-intro {
+    .map-header {
         align-items: flex-start;
 
         flex-direction: column;
@@ -1697,12 +1286,12 @@ footer {
         width: 100%;
     }
 
-    .map-filters {
-        overflow-x: auto;
+    .map-status {
+        width: fit-content;
     }
 
-    .map-filter {
-        white-space: nowrap;
+    .map-container {
+        height: 560px;
     }
 
 }
@@ -1724,31 +1313,61 @@ footer {
 
     main {
         padding:
-            45px 5% 70px;
+            42px 5% 65px;
     }
 
-    .map-intro h1 {
+    .map-header h1 {
         font-size: 40px;
 
         letter-spacing: -2px;
     }
 
+    .map-header p {
+        font-size: 13px;
+    }
+
     .map-container {
-        height: 470px;
+        height: 500px;
+
+        border-radius: 15px;
+    }
+
+    #mapWorld .leaflet-container {
+        border-radius: 15px;
+    }
+
+    .map-legend {
+        left: 10px;
+        bottom: 10px;
+
+        padding: 10px;
     }
 
     .map-legend > div {
         flex-direction: column;
 
-        gap: 5px;
-    }
-
-    .map-legend {
-        padding: 9px;
+        gap: 6px;
     }
 
     .zone-panel {
         padding: 22px;
+
+        border-radius: 16px;
+    }
+
+    .zone-panel h2 {
+        font-size: 25px;
+    }
+
+    .panel-details {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .trend-header {
+        align-items: flex-start;
+
+        flex-direction: column;
     }
 
     footer {
@@ -1757,4 +1376,120 @@ footer {
         flex-direction: column;
     }
 
+}
+
+/* =====================================================
+   READABILITY
+===================================================== */
+
+body {
+    font-size: 16px;
+}
+
+.nav-links a {
+    font-size: 16px !important;
+}
+
+.logo-text strong {
+    font-size: 21px !important;
+}
+
+.logo-text small {
+    font-size: 11px !important;
+}
+
+.location-button {
+    font-size: 14px !important;
+}
+
+h1 {
+    font-size: clamp(32px, 4vw, 52px);
+}
+
+h2 {
+    font-size: 28px;
+}
+
+h3 {
+    font-size: 19px;
+}
+
+p {
+    font-size: 15px;
+    line-height: 1.65;
+}
+
+button {
+    font-size: 14px;
+}
+
+.trend-header span {
+    font-size: 13px !important;
+}
+
+.trend-header strong {
+    font-size: 14px !important;
+}
+
+/* =========================================
+   HEATSHIELD - READABILITY IMPROVEMENTS
+========================================= */
+
+body {
+    font-size: 16px;
+}
+
+/* Main paragraph text */
+main p,
+main li {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+}
+
+/* Card descriptions and information */
+main .warning-content p,
+main .action-card p,
+main .action-step p,
+main .service-card p,
+main .about-content p,
+main .about-card p,
+main .safety-content p,
+main .info-card p,
+main .condition-card p,
+main .alert-card-content p,
+main .notification-content p {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+}
+
+/* Section headings */
+main h2 {
+    font-size: clamp(24px, 2.5vw, 32px);
+    line-height: 1.3;
+}
+
+main h3 {
+    font-size: 19px;
+    line-height: 1.4;
+}
+
+/* Navigation */
+.nav-links a {
+    font-size: 15px !important;
+}
+
+/* Small labels */
+main small {
+    font-size: 12px !important;
+}
+
+/* Buttons */
+main button {
+    font-size: 14px;
+    min-height: 40px;
+}
+
+/* Readable muted text */
+main p {
+    color: #aeb8c2;
 }

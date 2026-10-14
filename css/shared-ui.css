@@ -1,0 +1,503 @@
+
+/* =====================================================
+   HEATSHIELD - COMMON UI STYLES
+   Keeps navbar and text consistent across pages
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", Arial, sans-serif !important;
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   CONSISTENT NAVBAR LAYOUT
+===================================================== */
+
+header.navbar {
+    width: 100%;
+    min-height: 78px;
+    height: auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 24px;
+    padding: 12px clamp(18px, 4vw, 64px) !important;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    overflow: visible;
+}
+
+header.navbar .logo {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+
+/* Keep navigation in the same position */
+
+header.navbar nav#navLinks,
+header.navbar nav.nav-links {
+    flex: 1 1 auto;
+    min-width: 0;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: clamp(12px, 1.8vw, 26px) !important;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+/* All navigation links use the same font settings */
+
+header.navbar nav#navLinks a,
+header.navbar nav.nav-links a {
+    position: relative;
+
+    flex: 0 0 auto;
+
+    font-family: "Inter", Arial, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0 !important;
+
+    color: #aeb7c1 !important;
+
+    white-space: nowrap;
+    text-decoration: none;
+
+    padding: 12px 0 !important;
+
+    transition: color 0.2s ease;
+}
+
+
+/* The selected page changes color, not font weight */
+
+header.navbar nav#navLinks a:hover,
+header.navbar nav.nav-links a:hover,
+header.navbar nav#navLinks a.active,
+header.navbar nav.nav-links a.active {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+
+/* Consistent orange active indicator */
+
+header.navbar nav#navLinks a.active::after,
+header.navbar nav.nav-links a.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 1px;
+
+    height: 2px;
+
+    border-radius: 3px;
+    background: #ff7839;
+}
+
+
+/* Keep location/menu controls aligned */
+
+header.navbar .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+header.navbar > #locationButton,
+header.navbar > #menuButton {
+    flex: 0 0 auto;
+}
+
+
+/* Replace the browser's default focus box with a clear one */
+
+header.navbar nav a:focus-visible {
+    outline: 2px solid #ff7839;
+    outline-offset: 5px;
+    border-radius: 3px;
+}
+
+
+/* =====================================================
+   LARGER HEADINGS
+===================================================== */
+
+main h1 {
+    font-size: clamp(34px, 4vw, 52px) !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+}
+
+main h2 {
+    font-size: clamp(25px, 2.5vw, 34px) !important;
+    line-height: 1.35 !important;
+    font-weight: 700 !important;
+}
+
+main h3 {
+    font-size: 21px !important;
+    line-height: 1.4 !important;
+    font-weight: 700 !important;
+}
+
+main h4 {
+    font-size: 18px !important;
+    line-height: 1.45 !important;
+    font-weight: 700 !important;
+}
+
+
+/* Make emphasized text inherit its heading size */
+
+main h1 strong,
+main h1 b,
+main h2 strong,
+main h2 b,
+main h3 strong,
+main h3 b {
+    font-size: inherit !important;
+    font-weight: 800 !important;
+}
+
+
+/* =====================================================
+   READABLE PARAGRAPHS
+===================================================== */
+
+main p:not(.eyebrow):not(.section-label):not(.alert-time) {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+}
+
+
+/* Important text inside cards */
+
+main .action-step strong,
+main .action-card h3,
+main .service-card h3,
+main .info-card h3,
+main .condition-card strong,
+main .about-stat span {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+    font-weight: 700 !important;
+}
+
+
+/* Keep bold text visibly bold */
+
+main strong,
+main b {
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   SMALL LABELS AND BADGES
+===================================================== */
+
+main .eyebrow,
+main .section-label,
+main .stage-label,
+main .stage-badge,
+main .stage-tag,
+main .phase-badge,
+main .stage-status,
+main .action-badge,
+main .status-badge,
+main .action-number,
+main .stage-number,
+main .service-number,
+main .alert-level,
+main .alert-time {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    font-weight: 700 !important;
+}
+
+
+/* =====================================================
+   STAGE TABS
+   Before the heat / During the heat / After exposure
+===================================================== */
+
+main .stage-tabs button,
+main .stage-bar button,
+main .stage-selector button,
+main .stage-switcher button,
+main .stage-navigation button,
+main .stage-nav button,
+main .stage-tab,
+main .stage-button,
+main .stage-option,
+main [role="tab"] {
+    min-height: 44px !important;
+
+    padding: 11px 15px !important;
+
+    font-family: "Inter", Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
+}
+
+
+/* Stage labels and PREPARE-style badges */
+
+main .stage-content .stage-badge,
+main .stage-content .stage-tag,
+main .stage-panel .stage-badge,
+main .stage-panel .stage-tag,
+main .stage-detail .stage-badge,
+main .stage-detail .stage-tag,
+main .stage-content .stage-status,
+main .stage-panel .stage-status,
+main .stage-detail .stage-status {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    padding: 6px 10px !important;
+
+    line-height: 1.4 !important;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+main .learn-button,
+main .safety-button,
+main .prepare-button,
+main .action-button,
+main .service-card button,
+main .view-alert-button,
+main .filter-button {
+    font-family: "Inter", Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+}
+
+
+/* Keep ordinary action buttons easy to click */
+
+main .learn-button,
+main .safety-button,
+main .prepare-button,
+main .action-button,
+main .service-card button {
+    min-height: 42px;
+}
+
+
+/* =====================================================
+   MOBILE NAVBAR
+===================================================== */
+
+@media (max-width: 850px) {
+
+    header.navbar {
+        gap: 12px;
+        padding: 12px 18px !important;
+    }
+
+    header.navbar nav#navLinks:not(.open),
+    header.navbar nav.nav-links:not(.open) {
+        display: none !important;
+    }
+
+    header.navbar nav#navLinks.open,
+    header.navbar nav.nav-links.open {
+        position: absolute;
+
+        top: 100%;
+        left: 4%;
+        right: 4%;
+
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+
+        gap: 8px !important;
+
+        padding: 18px !important;
+
+        border: 1px solid #29333e;
+        border-radius: 12px;
+
+        background: #101720;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    header.navbar nav#navLinks.open a,
+    header.navbar nav.nav-links.open a {
+        width: 100%;
+        padding: 10px 4px !important;
+        font-size: 15px !important;
+    }
+
+    header.navbar nav#navLinks.open a.active::after,
+    header.navbar nav.nav-links.open a.active::after {
+        display: none;
+    }
+}
+
+
+/* =========================================
+   HEATSHIELD LOGO - SIZE AND ALIGNMENT FIX
+========================================= */
+
+/* Increase the shield on every page */
+header.navbar .logo-shield,
+header.navbar .logo-icon {
+    position: relative !important;
+
+    width: 44px !important;
+    height: 50px !important;
+    min-width: 44px !important;
+
+    flex: 0 0 44px !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    background: #ff7839 !important;
+
+    color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+
+    /* Consistent shield shape */
+    clip-path: polygon(
+        50% 0%,
+        91% 13%,
+        91% 52%,
+        83% 70%,
+        69% 84%,
+        50% 100%,
+        31% 84%,
+        17% 70%,
+        9% 52%,
+        9% 13%
+    );
+
+    overflow: visible;
+}
+
+/* Draw the sun in the visual center of the shield */
+header.navbar .logo-shield::before,
+header.navbar .logo-icon::before {
+    content: "☀";
+
+    position: absolute;
+
+    left: 50%;
+    top: 43%;
+
+    transform: translate(-50%, -50%);
+
+    display: block;
+
+    color: #ffffff !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+
+    clip-path: none;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   HEATSHIELD BRAND TEXT
+========================================= */
+
+header.navbar .logo-text strong,
+header.navbar .logo strong,
+header.navbar .logo h2 {
+    display: block;
+
+    font-family: "Inter", Arial, sans-serif !important;
+
+    font-size: 21px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+
+    letter-spacing: -0.5px !important;
+
+    color: #f3f4f5 !important;
+}
+
+/* Make "Shield" the same size as "Heat" */
+header.navbar .logo-text strong span,
+header.navbar .logo strong span,
+header.navbar .logo h2 span {
+    display: inline !important;
+
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+
+    vertical-align: baseline !important;
+
+    color: #ff7839 !important;
+}
+
+
+/* Keep the tagline readable and aligned */
+header.navbar .logo-text small {
+    display: block;
+
+    margin-top: 3px;
+
+    font-family: "Inter", Arial, sans-serif !important;
+    font-size: 9px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.4 !important;
+    letter-spacing: 1px !important;
+
+    color: #87919d !important;
+}
+
+
+/* Keep the shield and wordmark aligned */
+header.navbar .logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+
+    flex-shrink: 0;
+}
